@@ -47,6 +47,7 @@ func (q *Question) Index(ctx context.Context, req *proto.IndexRequest, rsp *prot
 	if !has {
 		log.Printf("user info is empty")
 	}
+	log.Printf("userInfo: [%v]", user)
 	if !has {
 		user.Chance = 1
 		user.LoginDay = nowStart
