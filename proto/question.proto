@@ -14,11 +14,21 @@ service Question {
     rpc Index (IndexRequest) returns (IndexResponse) {}
     rpc GetQuestionList (GetQuestionRequest) returns (GetQuestionResponse) {}
     rpc GetUserShare (GetUserShareRequest) returns (GetUserShareResponse) {}
+    rpc UploadResult (UploadResultRequest) returns (UploadResultResponse) {}
 }
 
 message RspStatus {
     int64 code = 1 [(gogoproto.jsontag) = "code"];
     string msg = 2;
+}
+
+message UploadResultRequest {
+    int64 userId = 1;
+    int64 success = 2;
+}
+
+message UploadResultResponse {
+    RspStatus status = 1;
 }
 // index request
 message IndexRequest {

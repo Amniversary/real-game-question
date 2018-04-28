@@ -9,6 +9,8 @@ It is generated from these files:
 
 It has these top-level messages:
 	RspStatus
+	UploadResultRequest
+	UploadResultResponse
 	IndexRequest
 	IndexResponse
 	GetUserShareRequest
@@ -52,6 +54,7 @@ type QuestionService interface {
 	Index(ctx context.Context, in *IndexRequest, opts ...client.CallOption) (*IndexResponse, error)
 	GetQuestionList(ctx context.Context, in *GetQuestionRequest, opts ...client.CallOption) (*GetQuestionResponse, error)
 	GetUserShare(ctx context.Context, in *GetUserShareRequest, opts ...client.CallOption) (*GetUserShareResponse, error)
+	UploadResult(ctx context.Context, in *UploadResultRequest, opts ...client.CallOption) (*UploadResultResponse, error)
 }
 
 type questionService struct {
@@ -102,12 +105,23 @@ func (c *questionService) GetUserShare(ctx context.Context, in *GetUserShareRequ
 	return out, nil
 }
 
+func (c *questionService) UploadResult(ctx context.Context, in *UploadResultRequest, opts ...client.CallOption) (*UploadResultResponse, error) {
+	req := c.c.NewRequest(c.name, "Question.UploadResult", in)
+	out := new(UploadResultResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // Server API for Question service
 
 type QuestionHandler interface {
 	Index(context.Context, *IndexRequest, *IndexResponse) error
 	GetQuestionList(context.Context, *GetQuestionRequest, *GetQuestionResponse) error
 	GetUserShare(context.Context, *GetUserShareRequest, *GetUserShareResponse) error
+	UploadResult(context.Context, *UploadResultRequest, *UploadResultResponse) error
 }
 
 func RegisterQuestionHandler(s server.Server, hdlr QuestionHandler, opts ...server.HandlerOption) {
@@ -115,6 +129,7 @@ func RegisterQuestionHandler(s server.Server, hdlr QuestionHandler, opts ...serv
 		Index(ctx context.Context, in *IndexRequest, out *IndexResponse) error
 		GetQuestionList(ctx context.Context, in *GetQuestionRequest, out *GetQuestionResponse) error
 		GetUserShare(ctx context.Context, in *GetUserShareRequest, out *GetUserShareResponse) error
+		UploadResult(ctx context.Context, in *UploadResultRequest, out *UploadResultResponse) error
 	}
 	type Question struct {
 		question
@@ -137,4 +152,8 @@ func (h *questionHandler) GetQuestionList(ctx context.Context, in *GetQuestionRe
 
 func (h *questionHandler) GetUserShare(ctx context.Context, in *GetUserShareRequest, out *GetUserShareResponse) error {
 	return h.QuestionHandler.GetUserShare(ctx, in, out)
+}
+
+func (h *questionHandler) UploadResult(ctx context.Context, in *UploadResultRequest, out *UploadResultResponse) error {
+	return h.QuestionHandler.UploadResult(ctx, in, out)
 }

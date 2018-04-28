@@ -43,7 +43,7 @@ func (q *Question) Index(ctx context.Context, req *proto.IndexRequest, rsp *prot
 	nowStart := now.BeginningOfDay().Unix()
 	// get user game info
 	user := &models.UserGame{UserId: req.UserId}
-	user, has := models.GetUser(user)
+	has := models.GetUser(user)
 	if !has {
 		log.Printf("user info is empty")
 	}
@@ -81,7 +81,7 @@ func (q *Question) GetQuestionList(ctx context.Context, req *proto.GetQuestionRe
 		return nil
 	}
 	user := &models.UserGame{UserId: req.UserId}
-	user, has := models.GetUser(user)
+	has := models.GetUser(user)
 	if !has {
 		rsp.Status.Code = RSP_ERROR
 		rsp.Status.Msg = GET_USER_INFO_MSG
@@ -107,7 +107,7 @@ func (q *Question) GetUserShare(ctx context.Context, req *proto.GetUserShareRequ
 	}
 
 	user := &models.UserGame{UserId: req.UserId}
-	user, has := models.GetUser(user)
+	has := models.GetUser(user)
 	if !has {
 		rsp.Status.Code = RSP_ERROR
 		rsp.Status.Msg = GET_USER_INFO_MSG
@@ -160,5 +160,24 @@ func (q *Question) GetUserShare(ctx context.Context, req *proto.GetUserShareRequ
 	rsp.ErrorCode = 1
 	rsp.Chance = user.Chance
 	rsp.TodayShares = models.GetUserShareCount(user.UserId, nowTime)
+	return nil
+}
+
+func (q *Question) UploadResult(ctx context.Context, req *proto.UploadResultRequest, rsp *proto.UploadResultResponse) error {
+	rsp.Status = &proto.RspStatus{Code: RSP_SUCCESS}
+	if req.UserId == 0 {
+		log.Printf("params can't be empty: [%v]", req)
+		rsp.Status.Code = RSP_ERROR
+		rsp.Status.Msg = "params can't be empty."
+		return nil
+	}
+	user := &models.UserGame{UserId:req.UserId}
+	has := models.GetUser(user)
+	if !has {
+		rsp.Status.Code = RSP_ERROR
+		rsp.Status.Msg = GET_USER_INFO_MSG
+		return nil
+	}
+	//if req.Success > user.Success
 	return nil
 }

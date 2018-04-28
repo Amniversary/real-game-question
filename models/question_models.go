@@ -43,14 +43,14 @@ func UpdateUserShare(userShare *UserShare) error {
 	return nil
 }
 
-func GetUser(user *UserGame) (*UserGame, bool) {
+func GetUser(user *UserGame) (bool) {
 	if err := db.Where("user_id = ?", user.UserId).First(&user).Error; err != nil {
 		log.Printf("getUser query first err: [%v]", err)
 	}
 	if user.ID == 0 {
-		return nil, false
+		return false
 	}
-	return user, true
+	return true
 }
 
 func CreateUser(user *UserGame) error {
