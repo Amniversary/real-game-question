@@ -3,12 +3,15 @@ package service
 import (
 	"context"
 	"log"
+	"fmt"
+	"time"
 
 	"github.com/Amniversary/real-game-question/models"
 	"github.com/micro/go-micro/client"
 	"github.com/jinzhu/now"
 	proto "github.com/Amniversary/real-game-question/proto"
 	userrpc "github.com/reechou/real-api-gateway/gateway/proto"
+
 )
 
 type Question struct {
@@ -73,6 +76,7 @@ func (q *Question) Index(ctx context.Context, req *proto.IndexRequest, rsp *prot
 	if !has {
 		user.Chance = 1
 		user.LoginDay = nowStart
+		user.Sign = fmt.Sprintf("%d_%d", time.Now().UnixNano(), user.UserId)
 		if err := models.CreateUser(user); err != nil {
 			log.Printf("create user game info err: [%v]", err)
 			return err
@@ -87,10 +91,11 @@ func (q *Question) Index(ctx context.Context, req *proto.IndexRequest, rsp *prot
 			}
 		}
 	}
+	rsp.Sign = user.Sign
 	rsp.TodayShares = models.GetUserShareCount(req.UserId, now.BeginningOfDay().Unix())
 	rsp.Chance = user.Chance
 	rsp.Score = user.Score
-	rsp.Success = user.Success
+	rsp.Goods = user.Goods
 	return nil
 }
 
@@ -109,6 +114,12 @@ func (q *Question) GetQuestionList(ctx context.Context, req *proto.GetQuestionRe
 		rsp.Status.Code = RSP_ERROR
 		rsp.Status.Msg = GET_USER_INFO_MSG
 		return nil
+	}
+	user.GameNum += 1
+	user.Chance -= 1
+	user.GameSign = fmt.Sprintf("%d_%d_%d", time.Now().UnixNano(), user.UserId, user.GameNum)
+	if err := models.UpdateUserInfo(user); err != nil {
+		return err
 	}
 	data, err := models.GetQuestionList()
 	if err != nil {
@@ -202,8 +213,16 @@ func (q *Question) UploadResult(ctx context.Context, req *proto.UploadResultRequ
 		rsp.Status.Msg = GET_USER_INFO_MSG
 		return nil
 	}
-	if req.Score > user.Score {
-		user.Score = req.Score
+	if req.Score > user.Success {
+		user.Success = req.Score
+		if req.Score > user.Score {
+			user.Score = req.Score
+		}
+		if err := models.UpdateUserInfo(user); err != nil {
+			return err
+		}
+	} else {
+		user.Success = 0
 		if err := models.UpdateUserInfo(user); err != nil {
 			return err
 		}

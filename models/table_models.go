@@ -1,13 +1,17 @@
 package models
 
 type UserGame struct {
-	ID       int64 `gorm:"primary_key" json:"id"`
-	UserId   int64 `gorm:"not null; default:0; type:int; index" json:"userId"`
-	Chance   int64 `gorm:"not null; default:0; type:int" json:"chance"`
-	Success  int64 `gorm:"not null; default:0; type:int" json:"success"`
-	Score    int64 `gorm:"not null; default:0; type:int" json:"score"`
-	LoginDay int64 `gorm:"not null; default:0; type:int" json:"loginDay"`
-	CreateAt int64 `gorm:"not null; default:0; type:int" json:"createAt"`
+	ID       int64  `gorm:"primary_key" json:"id"`
+	UserId   int64  `gorm:"not null; default:0; type:int; index" json:"userId"`
+	Chance   int64  `gorm:"not null; default:0; type:int" json:"chance"`
+	Success  int64  `gorm:"not null; default:0; type:int" json:"success"`
+	Score    int64  `gorm:"not null; default:0; type:int" json:"score"`
+	GameNum  int64  `gorm:"not null; default:0; type:int" json:"game_num"`
+	LoginDay int64  `gorm:"not null; default:0; type:int" json:"loginDay"`
+	Goods    int64  `gorm:"not null; default:0; type:int" json:"goods"`
+	Sign     string `gorm:"not null; default:''; type:varchar(256)" json:"sign"`
+	GameSign string `gorm:"not null; default:''; type:varchar(256)" json:"game_sign"`
+	CreateAt int64  `gorm:"not null; default:0; type:int" json:"createAt"`
 }
 
 // todo: 用户游戏表
