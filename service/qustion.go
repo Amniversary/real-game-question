@@ -56,7 +56,8 @@ var (
 	NewShareTxt                 = "邀请好友一起来挑战"
 	IndexShareImg               = "https://ylll111.xyz/jjds_wawa.png"
 	IndexHtmlTitle1             = "邀请好友一起来挑战"
-	IndexBarTitle               = "加减大师"
+	IndexBarTitle               = "加减"
+	IndexShareTxt               = "约群朋友一起来挑战"
 	GameRule1                   = "登录自动获得一次挑战机会，每天可以分享到10个不同的群，获得10次免费机会。"
 	GameRule2                   = "由于微信版本更新，可能会导致小程序的某些功能出现异常，请退出微信后重新打开。"
 	GameRule3                   = "挑战过程中答题时间会随着挑战进行而缩短。"
@@ -131,6 +132,7 @@ func (q *Question) Index(ctx context.Context, req *proto.IndexRequest, rsp *prot
 	rsp.Config.UserBarTitle = UserBarTitle
 	rsp.Config.GiftBarTitle = GiftBarTitle
 	rsp.Config.FailedClick = FailedClick
+	rsp.Config.IndexShareTxt = IndexShareTxt
 	rsp.GiftInfo = GiftList
 	rsp.Rank = &proto.Rank{RankList: RankList, RankInfo: RankInfo}
 	// get user info

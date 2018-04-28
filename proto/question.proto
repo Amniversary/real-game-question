@@ -115,6 +115,7 @@ message IndexConfig {
     string wz_if = 36;
     string tz_type = 37;
     string failed_click = 38;
+    string index_share_txt = 39;
 }
 
 // user_share request
