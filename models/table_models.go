@@ -1,0 +1,46 @@
+package models
+
+type UserGame struct {
+	ID       int64 `gorm:"primary_key" json:"id"`
+	UserId   int64 `gorm:"not null; default:0; type:int; index" json:"userId"`
+	Chance   int64 `gorm:"not null; default:0; type:int" json:"chance"`
+	Success  int64 `gorm:"not null; default:0; type:int" json:"success"`
+	Score    int64 `gorm:"not null; default:0; type:int" json:"score"`
+	LoginDay int64 `gorm:"not null; default:0; type:int" json:"loginDay"`
+	CreateAt int64 `gorm:"not null; default:0; type:int" json:"createAt"`
+}
+
+// todo: 用户游戏表
+func (UserGame) TableName() string {
+	return "user_game"
+}
+
+type Question struct {
+	ID       int64   `gorm:"primary_key" json:"id"`
+	Num1     int64   `gorm:"not null; default:0; type:int" json:"num1"`
+	Operator string  `gorm:"not null; default:''; type:varchar(128)" json:"operator"`
+	Num2     int64   `gorm:"not null; default:0; type:int" json:"num2"`
+	Result   int64   `gorm:"not null; default:0; type:int" json:"result"`
+	Success  int64   `gorm:"not null; default:0; type:int" json:"success"`
+	Seconds  float64 `gorm:"not null; default:0; type:float" json:"seconds"`
+	Level    int64   `gorm:"not null; default:0; type:int; index" json:"level"`
+}
+
+// todo: 问题表
+func (Question) TableName() string {
+	return "question"
+}
+
+type UserShare struct {
+	ID       int64  `gorm:"primary_key" json:"id"`
+	UserId   int64  `gorm:"not null; default:0; type:int; index" json:"userId"`
+	OpenGid  string `gorm:"not null; default:0; type:varchar(256); index; column:open_gid" json:"openGid"`
+	Num      int64  `gorm:"not null; default:0; type:int" json:"num"`
+	Date     int64  `gorm:"not null; default:''; type:int" json:"date"`
+	CreateAt int64  `gorm:"not null; default:0; type:int" json:"createAt"`
+}
+
+// todo: 用户分享数据
+func (UserShare) TableName() string {
+	return "user_share"
+}

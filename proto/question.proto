@@ -1,0 +1,67 @@
+syntax = "proto3";
+package question;
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+option (gogoproto.populate_all) = true;
+option (gogoproto.goproto_getters_all) = false;
+option (gogoproto.unmarshaler_all) = true;
+option (gogoproto.marshaler_all) = true;
+option (gogoproto.sizer_all) = true;
+
+
+service Question {
+    rpc Index (IndexRequest) returns (IndexResponse) {}
+    rpc GetQuestionList (GetQuestionRequest) returns (GetQuestionResponse) {}
+    rpc GetUserShare (GetUserShareRequest) returns (GetUserShareResponse) {}
+}
+
+message RspStatus {
+    int64 code = 1 [(gogoproto.jsontag) = "code"];
+    string msg = 2;
+}
+// index request
+message IndexRequest {
+    int64 userId = 1;
+}
+// index response
+message IndexResponse {
+    RspStatus status = 1;
+    int64 chance = 2 [(gogoproto.jsontag) = "chance"];
+    int64 success = 3 [(gogoproto.jsontag) = "success"];
+    int64 score = 4 [(gogoproto.jsontag) = "score"];
+    repeated string remindList = 5;
+}
+// user_share request
+message GetUserShareRequest {
+    string encryptedData = 1;
+    string iv = 2;
+    int64 userId = 3;
+}
+// user_share response
+message GetUserShareResponse {
+    RspStatus status = 1;
+    int64 chance = 2 [(gogoproto.jsontag) = "chance"];
+    int64 repeat = 3 [(gogoproto.jsontag) = "repeat"];
+    int64 today_shares = 4 [(gogoproto.jsontag) = "today_shares"];
+    int64 error_code = 5 [(gogoproto.jsontag) = "error_code"];
+}
+//  question request
+message GetQuestionRequest {
+    string sign = 1;
+    int64 userId = 2;
+}
+//  question response
+message GetQuestionResponse {
+    RspStatus status = 1;
+    repeated QuestionList data = 2;
+}
+
+message QuestionList {
+    int64 num1 = 1 [(gogoproto.jsontag) = "num1"];
+    string operator = 2;
+    int64 num2 = 3 [(gogoproto.jsontag) = "num2"];
+    int64 result = 4 [(gogoproto.jsontag) = "result"];
+    int64 success = 5 [(gogoproto.jsontag) = "success"];
+    float seconds = 6 [(gogoproto.jsontag) = "seconds"];
+}
