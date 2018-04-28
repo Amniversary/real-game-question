@@ -95,7 +95,7 @@ func (q *Question) Index(ctx context.Context, req *proto.IndexRequest, rsp *prot
 	rsp.Status = &proto.RspStatus{Code: RSP_SUCCESS}
 	rsp.Config = &proto.IndexConfig{}
 	rsp.Config.IndexTitle = IndexTitle
-	rsp.Config.IndexShareTitle = IndexShareTitle
+	rsp.Config.IndexShareTitle = fmt.Sprintf(IndexShareTitle, req.Name)
 	rsp.Config.NewShareTxt = NewShareTxt
 	rsp.Config.IndexShareImg = IndexShareImg
 	rsp.Config.IndexHtmlTitle1 = IndexHtmlTitle1
@@ -119,15 +119,15 @@ func (q *Question) Index(ctx context.Context, req *proto.IndexRequest, rsp *prot
 	rsp.Config.TzType = TzType
 	rsp.Config.GamePersonShareTitle = GamePersonShareTitle
 	rsp.Config.UserPersonShareTitle = UserPersonShareTitle
-	rsp.Config.GameFailedShareTitle = GameFailedShareTitle
-	rsp.Config.GameSuccessShareTitle = GameSuccessShareTitle
+	rsp.Config.GameFailedShareTitle = fmt.Sprintf(GameFailedShareTitle, req.Name)
+	rsp.Config.GameSuccessShareTitle = fmt.Sprintf(GameSuccessShareTitle, req.Name)
 	rsp.Config.GameFailedShareImg = GameFailedShareImg
 	rsp.Config.GameSuccessShareImg = GameSuccessShareImg
 	rsp.Config.FailedShareText1 = FailedShareText1
 	rsp.Config.FailedShareText2 = FailedShareText2
 	rsp.Config.FailedShareText3 = FailedShareText3
 	rsp.Config.FailedShareText4 = FailedShareText4
-	rsp.Config.UserShareTitle = UserShareTitle
+	rsp.Config.UserShareTitle = fmt.Sprintf(UserShareTitle, req.Name)
 	rsp.Config.UserShareImg = UserShareImg
 	rsp.Config.UserBarTitle = UserBarTitle
 	rsp.Config.GiftBarTitle = GiftBarTitle

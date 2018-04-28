@@ -35,6 +35,7 @@ message UploadResultResponse {
 // index request
 message IndexRequest {
     int64 userId = 1;
+    string name = 2;
 }
 // index response
 message IndexResponse {
