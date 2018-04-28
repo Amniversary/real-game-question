@@ -137,6 +137,8 @@ func (q *Question) Index(ctx context.Context, req *proto.IndexRequest, rsp *prot
 			}
 		}
 	}
+	rsp.PlayTime = user.GameNum
+	rsp.Ss = 1
 	rsp.Sign = user.Sign
 	rsp.TodayShares = models.GetUserShareCount(req.UserId, now.BeginningOfDay().Unix())
 	rsp.Chance = user.Chance
@@ -172,6 +174,7 @@ func (q *Question) GetQuestionList(ctx context.Context, req *proto.GetQuestionRe
 		log.Printf("get question list query err: [%v]", err)
 		return err
 	}
+	rsp.GameStatusSign = user.GameSign
 	rsp.Data = data
 	return nil
 }

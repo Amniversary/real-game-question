@@ -11,14 +11,10 @@ option (gogoproto.sizer_all) = true;
 
 
 service Question {
-    rpc Index (IndexRequest) returns (IndexResponse) {
-    }
-    rpc GetQuestionList (GetQuestionRequest) returns (GetQuestionResponse) {
-    }
-    rpc GetUserShare (GetUserShareRequest) returns (GetUserShareResponse) {
-    }
-    rpc UploadResult (UploadResultRequest) returns (UploadResultResponse) {
-    }
+    rpc Index (IndexRequest) returns (IndexResponse) {}
+    rpc GetQuestionList (GetQuestionRequest) returns (GetQuestionResponse) {}
+    rpc GetUserShare (GetUserShareRequest) returns (GetUserShareResponse) {}
+    rpc UploadResult (UploadResultRequest) returns (UploadResultResponse) {}
 }
 
 message RspStatus {
@@ -28,7 +24,9 @@ message RspStatus {
 
 message UploadResultRequest {
     int64 userId = 1 [(gogoproto.jsontag) = "userId"];
-    int64 score = 2 [(gogoproto.jsontag) = "score"];
+    int64 right_nums = 2 [(gogoproto.jsontag) = "right_nums"];
+    string game_status_sign = 3 [(gogoproto.jsontag) = "game_status_sign"];
+    string sign = 4 [(gogoproto.jsontag) = "sign"];
 }
 
 message UploadResultResponse {
@@ -48,7 +46,10 @@ message IndexResponse {
     string sign = 6 [(gogoproto.jsontag) = "sign"];
     repeated string gift = 7 [(gogoproto.jsontag) = "gift"];
     IndexConfig config = 8 [(gogoproto.jsontag) = "config"];
+    int64 play_time = 9 [(gogoproto.jsontag) = "play_time"];
+    int64 ss = 10 [(gogoproto.jsontag) = "ss"];
 }
+
 // index config
 message IndexConfig {
     int64 gift_show = 1 [(gogoproto.jsontag) = "gift_show"];
@@ -112,7 +113,8 @@ message GetQuestionRequest {
 //  question response
 message GetQuestionResponse {
     RspStatus status = 1;
-    repeated QuestionList data = 2;
+    string game_status_sign = 2;
+    repeated QuestionList data = 3;
 }
 
 message QuestionList {
