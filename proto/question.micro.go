@@ -13,6 +13,7 @@ It has these top-level messages:
 	UploadResultResponse
 	IndexRequest
 	IndexResponse
+	IndexConfig
 	GetUserShareRequest
 	GetUserShareResponse
 	GetQuestionRequest

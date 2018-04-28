@@ -11,10 +11,14 @@ option (gogoproto.sizer_all) = true;
 
 
 service Question {
-    rpc Index (IndexRequest) returns (IndexResponse) {}
-    rpc GetQuestionList (GetQuestionRequest) returns (GetQuestionResponse) {}
-    rpc GetUserShare (GetUserShareRequest) returns (GetUserShareResponse) {}
-    rpc UploadResult (UploadResultRequest) returns (UploadResultResponse) {}
+    rpc Index (IndexRequest) returns (IndexResponse) {
+    }
+    rpc GetQuestionList (GetQuestionRequest) returns (GetQuestionResponse) {
+    }
+    rpc GetUserShare (GetUserShareRequest) returns (GetUserShareResponse) {
+    }
+    rpc UploadResult (UploadResultRequest) returns (UploadResultResponse) {
+    }
 }
 
 message RspStatus {
@@ -23,8 +27,8 @@ message RspStatus {
 }
 
 message UploadResultRequest {
-    int64 userId = 1;
-    int64 success = 2;
+    int64 userId = 1 [(gogoproto.jsontag) = "userId"];
+    int64 score = 2 [(gogoproto.jsontag) = "score"];
 }
 
 message UploadResultResponse {
@@ -41,7 +45,29 @@ message IndexResponse {
     int64 success = 3 [(gogoproto.jsontag) = "success"];
     int64 score = 4 [(gogoproto.jsontag) = "score"];
     repeated string remindList = 5;
+    int64 today_shares = 6 [(gogoproto.jsontag) = "today_shares"];
+    int64 goods = 7 [(gogoproto.jsontag) = "goods"];
+    repeated string gift = 8 [(gogoproto.jsontag) = "gift"];
+    IndexConfig config = 9 [(gogoproto.jsontag) = "config"];
 }
+// index config
+message IndexConfig {
+    int64 gift_show = 1 [(gogoproto.jsontag) = "gift_show"];
+    string index_title = 2 [(gogoproto.jsontag) = "index_title"];
+    string index_share_title = 3 [(gogoproto.jsontag) = "index_share_title"];
+    string new_share_txt = 4 [(gogoproto.jsontag) = "new_share_txt"];
+    string index_share_img = 5 [(gogoproto.jsontag) = "index_share_img"];
+    string index_html_title1 = 6 [(gogoproto.jsontag) = "index_html_title1"];
+    string index_html_title2 = 7 [(gogoproto.jsontag) = "index_html_title2"];
+    string game_rule1 = 8 [(gogoproto.jsontag) = "game_rule1"];
+    string game_rule2 = 9 [(gogoproto.jsontag) = "game_rule2"];
+    string game_rule3 = 10 [(gogoproto.jsontag) = "game_rule3"];
+    string game_rule4 = 11 [(gogoproto.jsontag) = "game_rule4"];
+    string game_rule5 = 12 [(gogoproto.jsontag) = "game_rule5"];
+    int64 max_share = 13 [(gogoproto.jsontag) = "max_share"];
+    string index_bar_title = 14 [(gogoproto.jsontag) = "index_html_title1"];
+}
+
 // user_share request
 message GetUserShareRequest {
     string encryptedData = 1;

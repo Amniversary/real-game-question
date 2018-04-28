@@ -23,11 +23,27 @@ var (
 		"挑战过程中，在规定时间内连续判断对40道题简单的数字加减题，挑战成功。",
 		"挑战成功后，您可以免费挑选娃娃，（如果挑选的娃娃缺货，将随机发货），填写领取信息，客服按照申请顺序发货，娃娃包邮！",
 	}
+	IndexTitle      = "挑战成功赢娃娃"
+	IndexShareTitle = "约群朋友一起来挑战"
+	NewShareTxt     = "邀请好友一起来挑战"
+	IndexShareImg   = ""
+	IndexHtmlTitle1 = ""
+	IndexHtmlTitle2 = ""
+	IndexBarTitle   = ""
 )
 
 // todo: init user info
 func (q *Question) Index(ctx context.Context, req *proto.IndexRequest, rsp *proto.IndexResponse) error {
 	rsp.Status = &proto.RspStatus{Code: RSP_SUCCESS}
+
+	rsp.Config.IndexTitle = IndexTitle
+	rsp.Config.IndexShareTitle = IndexShareTitle
+	rsp.Config.NewShareTxt = NewShareTxt
+	rsp.Config.IndexShareImg = IndexShareImg
+	rsp.Config.IndexHtmlTitle1 = IndexHtmlTitle1
+	rsp.Config.IndexHtmlTitle2 = IndexHtmlTitle2
+	rsp.Config.IndexBarTitle = IndexBarTitle
+
 	// get user info
 	userClient := userrpc.NewUserService(USER_SERVER_NAME, q.Client)
 	userInfo, err := userClient.GetUserList(ctx, &userrpc.GetUserListRequest{
@@ -65,6 +81,7 @@ func (q *Question) Index(ctx context.Context, req *proto.IndexRequest, rsp *prot
 			}
 		}
 	}
+	rsp.TodayShares = models.GetUserShareCount(req.UserId, now.BeginningOfDay().Unix())
 	rsp.Chance = user.Chance
 	rsp.Score = user.Score
 	rsp.Success = user.Success
@@ -164,6 +181,7 @@ func (q *Question) GetUserShare(ctx context.Context, req *proto.GetUserShareRequ
 	return nil
 }
 
+// todo: 游戏结果记录
 func (q *Question) UploadResult(ctx context.Context, req *proto.UploadResultRequest, rsp *proto.UploadResultResponse) error {
 	rsp.Status = &proto.RspStatus{Code: RSP_SUCCESS}
 	if req.UserId == 0 {
@@ -172,13 +190,18 @@ func (q *Question) UploadResult(ctx context.Context, req *proto.UploadResultRequ
 		rsp.Status.Msg = "params can't be empty."
 		return nil
 	}
-	user := &models.UserGame{UserId:req.UserId}
+	user := &models.UserGame{UserId: req.UserId}
 	has := models.GetUser(user)
 	if !has {
 		rsp.Status.Code = RSP_ERROR
 		rsp.Status.Msg = GET_USER_INFO_MSG
 		return nil
 	}
-	//if req.Success > user.Success
+	if req.Score > user.Score {
+		user.Score = req.Score
+		if err := models.UpdateUserInfo(user); err != nil {
+			return err
+		}
+	}
 	return nil
 }

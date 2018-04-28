@@ -13,6 +13,7 @@
 		UploadResultResponse
 		IndexRequest
 		IndexResponse
+		IndexConfig
 		GetUserShareRequest
 		GetUserShareResponse
 		GetQuestionRequest
@@ -52,8 +53,8 @@ func (*RspStatus) ProtoMessage()               {}
 func (*RspStatus) Descriptor() ([]byte, []int) { return fileDescriptorQuestion, []int{0} }
 
 type UploadResultRequest struct {
-	UserId  int64 `protobuf:"varint,1,opt,name=userId,proto3" json:"userId,omitempty"`
-	Success int64 `protobuf:"varint,2,opt,name=success,proto3" json:"success,omitempty"`
+	UserId int64 `protobuf:"varint,1,opt,name=userId,proto3" json:"userId"`
+	Score  int64 `protobuf:"varint,2,opt,name=score,proto3" json:"score"`
 }
 
 func (m *UploadResultRequest) Reset()                    { *m = UploadResultRequest{} }
@@ -82,17 +83,44 @@ func (*IndexRequest) Descriptor() ([]byte, []int) { return fileDescriptorQuestio
 
 // index response
 type IndexResponse struct {
-	Status     *RspStatus `protobuf:"bytes,1,opt,name=status" json:"status,omitempty"`
-	Chance     int64      `protobuf:"varint,2,opt,name=chance,proto3" json:"chance"`
-	Success    int64      `protobuf:"varint,3,opt,name=success,proto3" json:"success"`
-	Score      int64      `protobuf:"varint,4,opt,name=score,proto3" json:"score"`
-	RemindList []string   `protobuf:"bytes,5,rep,name=remindList" json:"remindList,omitempty"`
+	Status      *RspStatus   `protobuf:"bytes,1,opt,name=status" json:"status,omitempty"`
+	Chance      int64        `protobuf:"varint,2,opt,name=chance,proto3" json:"chance"`
+	Success     int64        `protobuf:"varint,3,opt,name=success,proto3" json:"success"`
+	Score       int64        `protobuf:"varint,4,opt,name=score,proto3" json:"score"`
+	RemindList  []string     `protobuf:"bytes,5,rep,name=remindList" json:"remindList,omitempty"`
+	TodayShares int64        `protobuf:"varint,6,opt,name=today_shares,json=todayShares,proto3" json:"today_shares"`
+	Goods       int64        `protobuf:"varint,7,opt,name=goods,proto3" json:"goods"`
+	Gift        []string     `protobuf:"bytes,8,rep,name=gift" json:"gift"`
+	Config      *IndexConfig `protobuf:"bytes,9,opt,name=config" json:"config"`
 }
 
 func (m *IndexResponse) Reset()                    { *m = IndexResponse{} }
 func (m *IndexResponse) String() string            { return proto.CompactTextString(m) }
 func (*IndexResponse) ProtoMessage()               {}
 func (*IndexResponse) Descriptor() ([]byte, []int) { return fileDescriptorQuestion, []int{4} }
+
+// index config
+type IndexConfig struct {
+	GiftShow        int64  `protobuf:"varint,1,opt,name=gift_show,json=giftShow,proto3" json:"gift_show"`
+	IndexTitle      string `protobuf:"bytes,2,opt,name=index_title,json=indexTitle,proto3" json:"index_title"`
+	IndexShareTitle string `protobuf:"bytes,3,opt,name=index_share_title,json=indexShareTitle,proto3" json:"index_share_title"`
+	NewShareTxt     string `protobuf:"bytes,4,opt,name=new_share_txt,json=newShareTxt,proto3" json:"new_share_txt"`
+	IndexShareImg   string `protobuf:"bytes,5,opt,name=index_share_img,json=indexShareImg,proto3" json:"index_share_img"`
+	IndexHtmlTitle1 string `protobuf:"bytes,6,opt,name=index_html_title1,json=indexHtmlTitle1,proto3" json:"index_html_title1"`
+	IndexHtmlTitle2 string `protobuf:"bytes,7,opt,name=index_html_title2,json=indexHtmlTitle2,proto3" json:"index_html_title2"`
+	GameRule1       string `protobuf:"bytes,8,opt,name=game_rule1,json=gameRule1,proto3" json:"game_rule1"`
+	GameRule2       string `protobuf:"bytes,9,opt,name=game_rule2,json=gameRule2,proto3" json:"game_rule2"`
+	GameRule3       string `protobuf:"bytes,10,opt,name=game_rule3,json=gameRule3,proto3" json:"game_rule3"`
+	GameRule4       string `protobuf:"bytes,11,opt,name=game_rule4,json=gameRule4,proto3" json:"game_rule4"`
+	GameRule5       string `protobuf:"bytes,12,opt,name=game_rule5,json=gameRule5,proto3" json:"game_rule5"`
+	MaxShare        int64  `protobuf:"varint,13,opt,name=max_share,json=maxShare,proto3" json:"max_share"`
+	IndexBarTitle   string `protobuf:"bytes,14,opt,name=index_bar_title,json=indexBarTitle,proto3" json:"index_html_title1"`
+}
+
+func (m *IndexConfig) Reset()                    { *m = IndexConfig{} }
+func (m *IndexConfig) String() string            { return proto.CompactTextString(m) }
+func (*IndexConfig) ProtoMessage()               {}
+func (*IndexConfig) Descriptor() ([]byte, []int) { return fileDescriptorQuestion, []int{5} }
 
 // user_share request
 type GetUserShareRequest struct {
@@ -104,7 +132,7 @@ type GetUserShareRequest struct {
 func (m *GetUserShareRequest) Reset()                    { *m = GetUserShareRequest{} }
 func (m *GetUserShareRequest) String() string            { return proto.CompactTextString(m) }
 func (*GetUserShareRequest) ProtoMessage()               {}
-func (*GetUserShareRequest) Descriptor() ([]byte, []int) { return fileDescriptorQuestion, []int{5} }
+func (*GetUserShareRequest) Descriptor() ([]byte, []int) { return fileDescriptorQuestion, []int{6} }
 
 // user_share response
 type GetUserShareResponse struct {
@@ -118,7 +146,7 @@ type GetUserShareResponse struct {
 func (m *GetUserShareResponse) Reset()                    { *m = GetUserShareResponse{} }
 func (m *GetUserShareResponse) String() string            { return proto.CompactTextString(m) }
 func (*GetUserShareResponse) ProtoMessage()               {}
-func (*GetUserShareResponse) Descriptor() ([]byte, []int) { return fileDescriptorQuestion, []int{6} }
+func (*GetUserShareResponse) Descriptor() ([]byte, []int) { return fileDescriptorQuestion, []int{7} }
 
 //  question request
 type GetQuestionRequest struct {
@@ -129,7 +157,7 @@ type GetQuestionRequest struct {
 func (m *GetQuestionRequest) Reset()                    { *m = GetQuestionRequest{} }
 func (m *GetQuestionRequest) String() string            { return proto.CompactTextString(m) }
 func (*GetQuestionRequest) ProtoMessage()               {}
-func (*GetQuestionRequest) Descriptor() ([]byte, []int) { return fileDescriptorQuestion, []int{7} }
+func (*GetQuestionRequest) Descriptor() ([]byte, []int) { return fileDescriptorQuestion, []int{8} }
 
 //  question response
 type GetQuestionResponse struct {
@@ -140,7 +168,7 @@ type GetQuestionResponse struct {
 func (m *GetQuestionResponse) Reset()                    { *m = GetQuestionResponse{} }
 func (m *GetQuestionResponse) String() string            { return proto.CompactTextString(m) }
 func (*GetQuestionResponse) ProtoMessage()               {}
-func (*GetQuestionResponse) Descriptor() ([]byte, []int) { return fileDescriptorQuestion, []int{8} }
+func (*GetQuestionResponse) Descriptor() ([]byte, []int) { return fileDescriptorQuestion, []int{9} }
 
 type QuestionList struct {
 	Num1     int64   `protobuf:"varint,1,opt,name=num1,proto3" json:"num1"`
@@ -154,7 +182,7 @@ type QuestionList struct {
 func (m *QuestionList) Reset()                    { *m = QuestionList{} }
 func (m *QuestionList) String() string            { return proto.CompactTextString(m) }
 func (*QuestionList) ProtoMessage()               {}
-func (*QuestionList) Descriptor() ([]byte, []int) { return fileDescriptorQuestion, []int{9} }
+func (*QuestionList) Descriptor() ([]byte, []int) { return fileDescriptorQuestion, []int{10} }
 
 func init() {
 	proto.RegisterType((*RspStatus)(nil), "question.RspStatus")
@@ -162,6 +190,7 @@ func init() {
 	proto.RegisterType((*UploadResultResponse)(nil), "question.UploadResultResponse")
 	proto.RegisterType((*IndexRequest)(nil), "question.IndexRequest")
 	proto.RegisterType((*IndexResponse)(nil), "question.IndexResponse")
+	proto.RegisterType((*IndexConfig)(nil), "question.IndexConfig")
 	proto.RegisterType((*GetUserShareRequest)(nil), "question.GetUserShareRequest")
 	proto.RegisterType((*GetUserShareResponse)(nil), "question.GetUserShareResponse")
 	proto.RegisterType((*GetQuestionRequest)(nil), "question.GetQuestionRequest")
@@ -217,10 +246,10 @@ func (m *UploadResultRequest) MarshalTo(dAtA []byte) (int, error) {
 		i++
 		i = encodeVarintQuestion(dAtA, i, uint64(m.UserId))
 	}
-	if m.Success != 0 {
+	if m.Score != 0 {
 		dAtA[i] = 0x10
 		i++
-		i = encodeVarintQuestion(dAtA, i, uint64(m.Success))
+		i = encodeVarintQuestion(dAtA, i, uint64(m.Score))
 	}
 	return i, nil
 }
@@ -331,6 +360,141 @@ func (m *IndexResponse) MarshalTo(dAtA []byte) (int, error) {
 			i += copy(dAtA[i:], s)
 		}
 	}
+	if m.TodayShares != 0 {
+		dAtA[i] = 0x30
+		i++
+		i = encodeVarintQuestion(dAtA, i, uint64(m.TodayShares))
+	}
+	if m.Goods != 0 {
+		dAtA[i] = 0x38
+		i++
+		i = encodeVarintQuestion(dAtA, i, uint64(m.Goods))
+	}
+	if len(m.Gift) > 0 {
+		for _, s := range m.Gift {
+			dAtA[i] = 0x42
+			i++
+			l = len(s)
+			for l >= 1<<7 {
+				dAtA[i] = uint8(uint64(l)&0x7f | 0x80)
+				l >>= 7
+				i++
+			}
+			dAtA[i] = uint8(l)
+			i++
+			i += copy(dAtA[i:], s)
+		}
+	}
+	if m.Config != nil {
+		dAtA[i] = 0x4a
+		i++
+		i = encodeVarintQuestion(dAtA, i, uint64(m.Config.Size()))
+		n3, err := m.Config.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n3
+	}
+	return i, nil
+}
+
+func (m *IndexConfig) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *IndexConfig) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if m.GiftShow != 0 {
+		dAtA[i] = 0x8
+		i++
+		i = encodeVarintQuestion(dAtA, i, uint64(m.GiftShow))
+	}
+	if len(m.IndexTitle) > 0 {
+		dAtA[i] = 0x12
+		i++
+		i = encodeVarintQuestion(dAtA, i, uint64(len(m.IndexTitle)))
+		i += copy(dAtA[i:], m.IndexTitle)
+	}
+	if len(m.IndexShareTitle) > 0 {
+		dAtA[i] = 0x1a
+		i++
+		i = encodeVarintQuestion(dAtA, i, uint64(len(m.IndexShareTitle)))
+		i += copy(dAtA[i:], m.IndexShareTitle)
+	}
+	if len(m.NewShareTxt) > 0 {
+		dAtA[i] = 0x22
+		i++
+		i = encodeVarintQuestion(dAtA, i, uint64(len(m.NewShareTxt)))
+		i += copy(dAtA[i:], m.NewShareTxt)
+	}
+	if len(m.IndexShareImg) > 0 {
+		dAtA[i] = 0x2a
+		i++
+		i = encodeVarintQuestion(dAtA, i, uint64(len(m.IndexShareImg)))
+		i += copy(dAtA[i:], m.IndexShareImg)
+	}
+	if len(m.IndexHtmlTitle1) > 0 {
+		dAtA[i] = 0x32
+		i++
+		i = encodeVarintQuestion(dAtA, i, uint64(len(m.IndexHtmlTitle1)))
+		i += copy(dAtA[i:], m.IndexHtmlTitle1)
+	}
+	if len(m.IndexHtmlTitle2) > 0 {
+		dAtA[i] = 0x3a
+		i++
+		i = encodeVarintQuestion(dAtA, i, uint64(len(m.IndexHtmlTitle2)))
+		i += copy(dAtA[i:], m.IndexHtmlTitle2)
+	}
+	if len(m.GameRule1) > 0 {
+		dAtA[i] = 0x42
+		i++
+		i = encodeVarintQuestion(dAtA, i, uint64(len(m.GameRule1)))
+		i += copy(dAtA[i:], m.GameRule1)
+	}
+	if len(m.GameRule2) > 0 {
+		dAtA[i] = 0x4a
+		i++
+		i = encodeVarintQuestion(dAtA, i, uint64(len(m.GameRule2)))
+		i += copy(dAtA[i:], m.GameRule2)
+	}
+	if len(m.GameRule3) > 0 {
+		dAtA[i] = 0x52
+		i++
+		i = encodeVarintQuestion(dAtA, i, uint64(len(m.GameRule3)))
+		i += copy(dAtA[i:], m.GameRule3)
+	}
+	if len(m.GameRule4) > 0 {
+		dAtA[i] = 0x5a
+		i++
+		i = encodeVarintQuestion(dAtA, i, uint64(len(m.GameRule4)))
+		i += copy(dAtA[i:], m.GameRule4)
+	}
+	if len(m.GameRule5) > 0 {
+		dAtA[i] = 0x62
+		i++
+		i = encodeVarintQuestion(dAtA, i, uint64(len(m.GameRule5)))
+		i += copy(dAtA[i:], m.GameRule5)
+	}
+	if m.MaxShare != 0 {
+		dAtA[i] = 0x68
+		i++
+		i = encodeVarintQuestion(dAtA, i, uint64(m.MaxShare))
+	}
+	if len(m.IndexBarTitle) > 0 {
+		dAtA[i] = 0x72
+		i++
+		i = encodeVarintQuestion(dAtA, i, uint64(len(m.IndexBarTitle)))
+		i += copy(dAtA[i:], m.IndexBarTitle)
+	}
 	return i, nil
 }
 
@@ -388,11 +552,11 @@ func (m *GetUserShareResponse) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0xa
 		i++
 		i = encodeVarintQuestion(dAtA, i, uint64(m.Status.Size()))
-		n3, err := m.Status.MarshalTo(dAtA[i:])
+		n4, err := m.Status.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n3
+		i += n4
 	}
 	if m.Chance != 0 {
 		dAtA[i] = 0x10
@@ -465,11 +629,11 @@ func (m *GetQuestionResponse) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0xa
 		i++
 		i = encodeVarintQuestion(dAtA, i, uint64(m.Status.Size()))
-		n4, err := m.Status.MarshalTo(dAtA[i:])
+		n5, err := m.Status.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n4
+		i += n5
 	}
 	if len(m.Data) > 0 {
 		for _, msg := range m.Data {
@@ -563,9 +727,9 @@ func NewPopulatedUploadResultRequest(r randyQuestion, easy bool) *UploadResultRe
 	if r.Intn(2) == 0 {
 		this.UserId *= -1
 	}
-	this.Success = int64(r.Int63())
+	this.Score = int64(r.Int63())
 	if r.Intn(2) == 0 {
-		this.Success *= -1
+		this.Score *= -1
 	}
 	if !easy && r.Intn(10) != 0 {
 	}
@@ -615,6 +779,49 @@ func NewPopulatedIndexResponse(r randyQuestion, easy bool) *IndexResponse {
 	for i := 0; i < v1; i++ {
 		this.RemindList[i] = string(randStringQuestion(r))
 	}
+	this.TodayShares = int64(r.Int63())
+	if r.Intn(2) == 0 {
+		this.TodayShares *= -1
+	}
+	this.Goods = int64(r.Int63())
+	if r.Intn(2) == 0 {
+		this.Goods *= -1
+	}
+	v2 := r.Intn(10)
+	this.Gift = make([]string, v2)
+	for i := 0; i < v2; i++ {
+		this.Gift[i] = string(randStringQuestion(r))
+	}
+	if r.Intn(10) != 0 {
+		this.Config = NewPopulatedIndexConfig(r, easy)
+	}
+	if !easy && r.Intn(10) != 0 {
+	}
+	return this
+}
+
+func NewPopulatedIndexConfig(r randyQuestion, easy bool) *IndexConfig {
+	this := &IndexConfig{}
+	this.GiftShow = int64(r.Int63())
+	if r.Intn(2) == 0 {
+		this.GiftShow *= -1
+	}
+	this.IndexTitle = string(randStringQuestion(r))
+	this.IndexShareTitle = string(randStringQuestion(r))
+	this.NewShareTxt = string(randStringQuestion(r))
+	this.IndexShareImg = string(randStringQuestion(r))
+	this.IndexHtmlTitle1 = string(randStringQuestion(r))
+	this.IndexHtmlTitle2 = string(randStringQuestion(r))
+	this.GameRule1 = string(randStringQuestion(r))
+	this.GameRule2 = string(randStringQuestion(r))
+	this.GameRule3 = string(randStringQuestion(r))
+	this.GameRule4 = string(randStringQuestion(r))
+	this.GameRule5 = string(randStringQuestion(r))
+	this.MaxShare = int64(r.Int63())
+	if r.Intn(2) == 0 {
+		this.MaxShare *= -1
+	}
+	this.IndexBarTitle = string(randStringQuestion(r))
 	if !easy && r.Intn(10) != 0 {
 	}
 	return this
@@ -677,9 +884,9 @@ func NewPopulatedGetQuestionResponse(r randyQuestion, easy bool) *GetQuestionRes
 		this.Status = NewPopulatedRspStatus(r, easy)
 	}
 	if r.Intn(10) != 0 {
-		v2 := r.Intn(5)
-		this.Data = make([]*QuestionList, v2)
-		for i := 0; i < v2; i++ {
+		v3 := r.Intn(5)
+		this.Data = make([]*QuestionList, v3)
+		for i := 0; i < v3; i++ {
 			this.Data[i] = NewPopulatedQuestionList(r, easy)
 		}
 	}
@@ -735,9 +942,9 @@ func randUTF8RuneQuestion(r randyQuestion) rune {
 	return rune(ru + 61)
 }
 func randStringQuestion(r randyQuestion) string {
-	v3 := r.Intn(100)
-	tmps := make([]rune, v3)
-	for i := 0; i < v3; i++ {
+	v4 := r.Intn(100)
+	tmps := make([]rune, v4)
+	for i := 0; i < v4; i++ {
 		tmps[i] = randUTF8RuneQuestion(r)
 	}
 	return string(tmps)
@@ -759,11 +966,11 @@ func randFieldQuestion(dAtA []byte, r randyQuestion, fieldNumber int, wire int) 
 	switch wire {
 	case 0:
 		dAtA = encodeVarintPopulateQuestion(dAtA, uint64(key))
-		v4 := r.Int63()
+		v5 := r.Int63()
 		if r.Intn(2) == 0 {
-			v4 *= -1
+			v5 *= -1
 		}
-		dAtA = encodeVarintPopulateQuestion(dAtA, uint64(v4))
+		dAtA = encodeVarintPopulateQuestion(dAtA, uint64(v5))
 	case 1:
 		dAtA = encodeVarintPopulateQuestion(dAtA, uint64(key))
 		dAtA = append(dAtA, byte(r.Intn(256)), byte(r.Intn(256)), byte(r.Intn(256)), byte(r.Intn(256)), byte(r.Intn(256)), byte(r.Intn(256)), byte(r.Intn(256)), byte(r.Intn(256)))
@@ -807,8 +1014,8 @@ func (m *UploadResultRequest) Size() (n int) {
 	if m.UserId != 0 {
 		n += 1 + sovQuestion(uint64(m.UserId))
 	}
-	if m.Success != 0 {
-		n += 1 + sovQuestion(uint64(m.Success))
+	if m.Score != 0 {
+		n += 1 + sovQuestion(uint64(m.Score))
 	}
 	return n
 }
@@ -853,6 +1060,82 @@ func (m *IndexResponse) Size() (n int) {
 			l = len(s)
 			n += 1 + l + sovQuestion(uint64(l))
 		}
+	}
+	if m.TodayShares != 0 {
+		n += 1 + sovQuestion(uint64(m.TodayShares))
+	}
+	if m.Goods != 0 {
+		n += 1 + sovQuestion(uint64(m.Goods))
+	}
+	if len(m.Gift) > 0 {
+		for _, s := range m.Gift {
+			l = len(s)
+			n += 1 + l + sovQuestion(uint64(l))
+		}
+	}
+	if m.Config != nil {
+		l = m.Config.Size()
+		n += 1 + l + sovQuestion(uint64(l))
+	}
+	return n
+}
+
+func (m *IndexConfig) Size() (n int) {
+	var l int
+	_ = l
+	if m.GiftShow != 0 {
+		n += 1 + sovQuestion(uint64(m.GiftShow))
+	}
+	l = len(m.IndexTitle)
+	if l > 0 {
+		n += 1 + l + sovQuestion(uint64(l))
+	}
+	l = len(m.IndexShareTitle)
+	if l > 0 {
+		n += 1 + l + sovQuestion(uint64(l))
+	}
+	l = len(m.NewShareTxt)
+	if l > 0 {
+		n += 1 + l + sovQuestion(uint64(l))
+	}
+	l = len(m.IndexShareImg)
+	if l > 0 {
+		n += 1 + l + sovQuestion(uint64(l))
+	}
+	l = len(m.IndexHtmlTitle1)
+	if l > 0 {
+		n += 1 + l + sovQuestion(uint64(l))
+	}
+	l = len(m.IndexHtmlTitle2)
+	if l > 0 {
+		n += 1 + l + sovQuestion(uint64(l))
+	}
+	l = len(m.GameRule1)
+	if l > 0 {
+		n += 1 + l + sovQuestion(uint64(l))
+	}
+	l = len(m.GameRule2)
+	if l > 0 {
+		n += 1 + l + sovQuestion(uint64(l))
+	}
+	l = len(m.GameRule3)
+	if l > 0 {
+		n += 1 + l + sovQuestion(uint64(l))
+	}
+	l = len(m.GameRule4)
+	if l > 0 {
+		n += 1 + l + sovQuestion(uint64(l))
+	}
+	l = len(m.GameRule5)
+	if l > 0 {
+		n += 1 + l + sovQuestion(uint64(l))
+	}
+	if m.MaxShare != 0 {
+		n += 1 + sovQuestion(uint64(m.MaxShare))
+	}
+	l = len(m.IndexBarTitle)
+	if l > 0 {
+		n += 1 + l + sovQuestion(uint64(l))
 	}
 	return n
 }
@@ -1111,9 +1394,9 @@ func (m *UploadResultRequest) Unmarshal(dAtA []byte) error {
 			}
 		case 2:
 			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Success", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Score", wireType)
 			}
-			m.Success = 0
+			m.Score = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowQuestion
@@ -1123,7 +1406,7 @@ func (m *UploadResultRequest) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Success |= (int64(b) & 0x7F) << shift
+				m.Score |= (int64(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -1448,6 +1731,542 @@ func (m *IndexResponse) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			m.RemindList = append(m.RemindList, string(dAtA[iNdEx:postIndex]))
+			iNdEx = postIndex
+		case 6:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TodayShares", wireType)
+			}
+			m.TodayShares = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuestion
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.TodayShares |= (int64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 7:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Goods", wireType)
+			}
+			m.Goods = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuestion
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Goods |= (int64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 8:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Gift", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuestion
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuestion
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Gift = append(m.Gift, string(dAtA[iNdEx:postIndex]))
+			iNdEx = postIndex
+		case 9:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Config", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuestion
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuestion
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Config == nil {
+				m.Config = &IndexConfig{}
+			}
+			if err := m.Config.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuestion(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthQuestion
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *IndexConfig) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuestion
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: IndexConfig: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: IndexConfig: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field GiftShow", wireType)
+			}
+			m.GiftShow = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuestion
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.GiftShow |= (int64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field IndexTitle", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuestion
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuestion
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.IndexTitle = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field IndexShareTitle", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuestion
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuestion
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.IndexShareTitle = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field NewShareTxt", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuestion
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuestion
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.NewShareTxt = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field IndexShareImg", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuestion
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuestion
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.IndexShareImg = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field IndexHtmlTitle1", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuestion
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuestion
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.IndexHtmlTitle1 = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field IndexHtmlTitle2", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuestion
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuestion
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.IndexHtmlTitle2 = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 8:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field GameRule1", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuestion
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuestion
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.GameRule1 = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 9:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field GameRule2", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuestion
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuestion
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.GameRule2 = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 10:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field GameRule3", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuestion
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuestion
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.GameRule3 = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 11:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field GameRule4", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuestion
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuestion
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.GameRule4 = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 12:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field GameRule5", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuestion
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuestion
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.GameRule5 = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 13:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field MaxShare", wireType)
+			}
+			m.MaxShare = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuestion
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.MaxShare |= (int64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 14:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field IndexBarTitle", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuestion
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuestion
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.IndexBarTitle = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
@@ -2242,47 +3061,68 @@ var (
 func init() { proto.RegisterFile("question.proto", fileDescriptorQuestion) }
 
 var fileDescriptorQuestion = []byte{
-	// 667 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xb4, 0x54, 0xc1, 0x6e, 0xd3, 0x4c,
-	0x10, 0x8e, 0xe3, 0x24, 0x7f, 0x32, 0x49, 0xfb, 0x57, 0xdb, 0xaa, 0x58, 0x11, 0xd8, 0x91, 0x05,
-	0x28, 0x02, 0xb5, 0x15, 0xe9, 0x0d, 0x2e, 0xa8, 0x45, 0xaa, 0x2a, 0x21, 0x01, 0x5b, 0xf5, 0x5c,
-	0xb9, 0xf6, 0x92, 0x5a, 0x6a, 0xbc, 0x66, 0x77, 0x5d, 0xd1, 0x37, 0xe1, 0x59, 0x78, 0x82, 0x1e,
-	0x39, 0x72, 0x8a, 0x68, 0xb9, 0xe5, 0xc2, 0x95, 0x23, 0xf2, 0x78, 0x9d, 0xac, 0x69, 0x0b, 0x52,
-	0x25, 0x2e, 0xde, 0x9d, 0xcf, 0xdf, 0xcc, 0xce, 0x7c, 0xb3, 0xb3, 0xb0, 0xfc, 0x21, 0x63, 0x52,
-	0xc5, 0x3c, 0xd9, 0x4c, 0x05, 0x57, 0x9c, 0xb4, 0x4b, 0xbb, 0xbf, 0x31, 0x8e, 0xd5, 0x49, 0x76,
-	0xbc, 0x19, 0xf2, 0xc9, 0xd6, 0x98, 0x8f, 0xf9, 0x16, 0x12, 0x8e, 0xb3, 0xf7, 0x68, 0xa1, 0x81,
-	0xbb, 0xc2, 0xd1, 0x7f, 0x01, 0x1d, 0x2a, 0xd3, 0x03, 0x15, 0xa8, 0x4c, 0x92, 0xfb, 0xd0, 0x08,
-	0x79, 0xc4, 0x1c, 0x6b, 0x60, 0x0d, 0xed, 0x9d, 0xf6, 0x6c, 0xea, 0xa1, 0x4d, 0xf1, 0x4b, 0x56,
-	0xc0, 0x9e, 0xc8, 0xb1, 0x53, 0x1f, 0x58, 0xc3, 0x0e, 0xcd, 0xb7, 0xfe, 0x1e, 0xac, 0x1e, 0xa6,
-	0xa7, 0x3c, 0x88, 0x28, 0x93, 0xd9, 0xa9, 0xa2, 0x0c, 0xb3, 0x20, 0xeb, 0xd0, 0xca, 0x24, 0x13,
-	0xfb, 0x51, 0x11, 0x88, 0x6a, 0x8b, 0x38, 0xf0, 0x9f, 0xcc, 0xc2, 0x90, 0x49, 0x89, 0x41, 0x6c,
-	0x5a, 0x9a, 0xfe, 0x2e, 0xac, 0x55, 0x03, 0xc9, 0x94, 0x27, 0x92, 0x91, 0xa7, 0xd0, 0x92, 0x98,
-	0x1a, 0x46, 0xea, 0x8e, 0x56, 0x37, 0xe7, 0x75, 0xcf, 0xb3, 0xa6, 0x9a, 0xe2, 0x3f, 0x86, 0xde,
-	0x7e, 0x12, 0xb1, 0x8f, 0x7f, 0x49, 0xc3, 0xbf, 0xb0, 0x60, 0x49, 0x13, 0xef, 0x70, 0x0c, 0xf1,
-	0xa1, 0x15, 0x9e, 0x04, 0x49, 0xc8, 0x8a, 0x22, 0x76, 0x60, 0x36, 0xf5, 0x34, 0x42, 0xf5, 0x4a,
-	0x1e, 0x2d, 0x2a, 0xb5, 0x91, 0xd4, 0x9d, 0x4d, 0xbd, 0x12, 0x9a, 0x97, 0x4d, 0x3c, 0x68, 0xca,
-	0x90, 0x0b, 0xe6, 0x34, 0x90, 0xd4, 0x99, 0x4d, 0xbd, 0x02, 0xa0, 0xc5, 0x42, 0x5c, 0x00, 0xc1,
-	0x26, 0x71, 0x12, 0xbd, 0x8e, 0xa5, 0x72, 0x9a, 0x03, 0x7b, 0xd8, 0xa1, 0x06, 0xe2, 0x87, 0xb0,
-	0xba, 0xc7, 0xd4, 0xa1, 0x64, 0xe2, 0xe0, 0x24, 0x10, 0xac, 0xac, 0xfc, 0x21, 0x2c, 0xb1, 0x24,
-	0x14, 0xe7, 0xa9, 0x62, 0xd1, 0xab, 0x40, 0x05, 0x58, 0x56, 0x87, 0x56, 0x41, 0xb2, 0x0c, 0xf5,
-	0xf8, 0x4c, 0xb7, 0xb3, 0x1e, 0x9f, 0x19, 0x7a, 0xd9, 0x15, 0xbd, 0x7e, 0x58, 0xb0, 0x56, 0x3d,
-	0xe5, 0x5f, 0xc9, 0xe6, 0x43, 0x4b, 0xb0, 0x94, 0x05, 0x4a, 0xab, 0x86, 0x9c, 0x02, 0xa1, 0x7a,
-	0x25, 0xdb, 0xd0, 0x53, 0x3c, 0x0a, 0xce, 0x8f, 0x64, 0x9e, 0x8b, 0xd4, 0xd2, 0xad, 0xcc, 0xa6,
-	0x5e, 0x05, 0xa7, 0x5d, 0xb4, 0x30, 0x61, 0x49, 0x36, 0x00, 0x98, 0x10, 0x5c, 0x1c, 0xe1, 0xf5,
-	0x6e, 0xa2, 0xcb, 0xf2, 0x6c, 0xea, 0x19, 0x28, 0xed, 0xe0, 0x7e, 0x97, 0x47, 0xcc, 0x7f, 0x09,
-	0x64, 0x8f, 0xa9, 0x77, 0xba, 0x98, 0x52, 0x55, 0x02, 0x0d, 0x19, 0x8f, 0x13, 0x2d, 0x26, 0xee,
-	0x0d, 0xcd, 0xea, 0x15, 0xcd, 0x12, 0x6c, 0xcc, 0x22, 0xc2, 0x5d, 0x14, 0x7b, 0x02, 0x8d, 0x28,
-	0x6f, 0x5e, 0x7d, 0x60, 0x0f, 0xbb, 0xa3, 0xf5, 0x05, 0xb5, 0x0c, 0x9b, 0x5f, 0x01, 0x8a, 0x1c,
-	0xff, 0xab, 0x05, 0x3d, 0x13, 0xce, 0x47, 0x39, 0xc9, 0x26, 0xcf, 0xcc, 0x51, 0xce, 0x6d, 0x8a,
-	0x5f, 0xd2, 0x87, 0x36, 0x4f, 0x99, 0x08, 0x14, 0x17, 0xfa, 0x02, 0xcc, 0x6d, 0xed, 0x39, 0xd2,
-	0x2d, 0x28, 0x3d, 0x47, 0xe8, 0x39, 0x2a, 0x5a, 0x94, 0xcf, 0xa8, 0x16, 0x5e, 0xb7, 0x08, 0xa7,
-	0x56, 0xaf, 0xe6, 0xed, 0x6f, 0xfe, 0xe1, 0xf6, 0xe7, 0x34, 0x16, 0xf2, 0x24, 0x92, 0x4e, 0x6b,
-	0x60, 0x0d, 0xeb, 0x9a, 0x56, 0x40, 0xb4, 0xdc, 0x8c, 0x3e, 0xd7, 0xa1, 0x5d, 0x96, 0x46, 0x9e,
-	0x43, 0x13, 0x47, 0x97, 0x18, 0x72, 0x98, 0x43, 0xdf, 0xbf, 0x77, 0x0d, 0x2f, 0xa4, 0xf7, 0x6b,
-	0xe4, 0x2d, 0xfc, 0x6f, 0xf4, 0xa4, 0x50, 0x69, 0xc1, 0xbe, 0xde, 0xf0, 0xfe, 0x83, 0x5b, 0xfe,
-	0xce, 0x23, 0xbe, 0x81, 0x9e, 0x39, 0x18, 0xa4, 0xea, 0xf0, 0xfb, 0x58, 0xf6, 0xdd, 0xdb, 0x7e,
-	0x9b, 0x01, 0xcd, 0x77, 0xd0, 0x0c, 0x78, 0xc3, 0x43, 0x6b, 0x06, 0xbc, 0xe9, 0xf9, 0xf4, 0x6b,
-	0x3b, 0xce, 0xc5, 0xa5, 0x5b, 0xfb, 0x79, 0xe9, 0x5a, 0x17, 0x57, 0xae, 0xf5, 0xe5, 0xca, 0xb5,
-	0xbe, 0x5d, 0xb9, 0xd6, 0xa7, 0xef, 0x6e, 0xed, 0xb8, 0x85, 0xef, 0xff, 0xf6, 0xaf, 0x00, 0x00,
-	0x00, 0xff, 0xff, 0xde, 0x7f, 0x0f, 0xd9, 0x4a, 0x06, 0x00, 0x00,
+	// 997 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xb4, 0x56, 0x41, 0x6f, 0xe3, 0x44,
+	0x14, 0x6e, 0x92, 0x26, 0x1b, 0xbf, 0x34, 0xed, 0xee, 0x74, 0xb7, 0x58, 0x15, 0xc4, 0x95, 0x05,
+	0xa8, 0x5a, 0xd4, 0x2e, 0x75, 0xda, 0x03, 0xac, 0x90, 0x20, 0x45, 0x5a, 0x2a, 0x21, 0x01, 0x53,
+	0xf6, 0xc2, 0x25, 0x72, 0xed, 0xa9, 0x63, 0x29, 0xf6, 0x04, 0xcf, 0x64, 0xdb, 0xfd, 0x27, 0xfc,
+	0x16, 0x7e, 0xc1, 0x1e, 0x39, 0x72, 0xb2, 0xd8, 0x72, 0xf3, 0x85, 0x23, 0x9c, 0x10, 0x9a, 0xe7,
+	0x71, 0x6c, 0xa7, 0xe9, 0x0a, 0xad, 0xb4, 0x17, 0xcf, 0x7b, 0x6f, 0xbe, 0xf7, 0xe6, 0xcd, 0xf7,
+	0xc6, 0x6f, 0x06, 0x36, 0x7f, 0x9e, 0x33, 0x21, 0x43, 0x1e, 0x1f, 0xce, 0x12, 0x2e, 0x39, 0xe9,
+	0x16, 0xfa, 0xee, 0x41, 0x10, 0xca, 0xc9, 0xfc, 0xe2, 0xd0, 0xe3, 0xd1, 0x93, 0x80, 0x07, 0xfc,
+	0x09, 0x02, 0x2e, 0xe6, 0x97, 0xa8, 0xa1, 0x82, 0x52, 0xee, 0x68, 0x3f, 0x05, 0x83, 0x8a, 0xd9,
+	0xb9, 0x74, 0xe5, 0x5c, 0x90, 0xf7, 0x61, 0xdd, 0xe3, 0x3e, 0x33, 0x1b, 0x7b, 0x8d, 0xfd, 0xd6,
+	0xa8, 0x9b, 0xa5, 0x16, 0xea, 0x14, 0xbf, 0xe4, 0x3e, 0xb4, 0x22, 0x11, 0x98, 0xcd, 0xbd, 0xc6,
+	0xbe, 0x41, 0x95, 0x68, 0xff, 0x04, 0xdb, 0xcf, 0x67, 0x53, 0xee, 0xfa, 0x94, 0x89, 0xf9, 0x54,
+	0x52, 0x86, 0x59, 0x10, 0x1b, 0x3a, 0x73, 0xc1, 0x92, 0x33, 0x5f, 0x07, 0x82, 0x2c, 0xb5, 0xb4,
+	0x85, 0xea, 0x91, 0x58, 0xd0, 0x16, 0x1e, 0x4f, 0x18, 0x86, 0x6b, 0x8d, 0x8c, 0x2c, 0xb5, 0x72,
+	0x03, 0xcd, 0x07, 0xfb, 0x14, 0x1e, 0xd6, 0x63, 0x8b, 0x19, 0x8f, 0x05, 0x23, 0x9f, 0x40, 0x47,
+	0x60, 0xb6, 0x18, 0xbc, 0xe7, 0x6c, 0x1f, 0x2e, 0xa8, 0x58, 0x6c, 0x84, 0x6a, 0x88, 0xfd, 0x31,
+	0x6c, 0x9c, 0xc5, 0x3e, 0xbb, 0x2e, 0x32, 0xdb, 0xa9, 0x67, 0x56, 0x64, 0x63, 0xff, 0xdd, 0x84,
+	0xbe, 0x06, 0xbe, 0xc5, 0x32, 0x6a, 0xc3, 0xde, 0xc4, 0x8d, 0xbd, 0x62, 0x37, 0xb8, 0xe1, 0xdc,
+	0x42, 0xf5, 0x48, 0x3e, 0x82, 0x7b, 0x62, 0xee, 0x79, 0x4c, 0x08, 0xb3, 0x85, 0xa0, 0x5e, 0x96,
+	0x5a, 0x85, 0x89, 0x16, 0x42, 0xc9, 0xcb, 0xfa, 0x6a, 0x5e, 0xc8, 0x00, 0x20, 0x61, 0x51, 0x18,
+	0xfb, 0xdf, 0x86, 0x42, 0x9a, 0xed, 0xbd, 0xd6, 0xbe, 0x41, 0x2b, 0x16, 0x32, 0x84, 0x0d, 0xc9,
+	0x7d, 0xf7, 0xe5, 0x58, 0x4c, 0xdc, 0x84, 0x09, 0xb3, 0x83, 0x71, 0xee, 0x67, 0xa9, 0x55, 0xb3,
+	0xd3, 0x1e, 0x6a, 0xe7, 0xa8, 0xa8, 0x55, 0x03, 0xce, 0x7d, 0x61, 0xde, 0x2b, 0x57, 0x45, 0x03,
+	0xcd, 0x07, 0x75, 0x32, 0x82, 0xf0, 0x52, 0x9a, 0x5d, 0xb5, 0x5e, 0x7e, 0x32, 0x94, 0x4e, 0xf1,
+	0x4b, 0x3e, 0x83, 0x8e, 0xc7, 0xe3, 0xcb, 0x30, 0x30, 0x0d, 0x24, 0xeb, 0x51, 0x49, 0x16, 0xb2,
+	0x7a, 0x8a, 0x93, 0x9a, 0x16, 0x94, 0xa9, 0x1e, 0xed, 0x7f, 0xdb, 0xd0, 0xab, 0x60, 0xc8, 0x63,
+	0x30, 0x54, 0xc8, 0xb1, 0x98, 0xf0, 0x2b, 0x7d, 0x7c, 0xfa, 0x59, 0x6a, 0x95, 0x46, 0xda, 0x55,
+	0xe2, 0xf9, 0x84, 0x5f, 0x91, 0x4f, 0xa1, 0x17, 0x2a, 0xd7, 0xb1, 0x0c, 0xe5, 0x34, 0xe7, 0xde,
+	0x18, 0x6d, 0x65, 0xa9, 0x55, 0x35, 0x53, 0x40, 0xe5, 0x47, 0x25, 0x93, 0xaf, 0xe0, 0x41, 0x3e,
+	0x85, 0x24, 0x68, 0xbf, 0x16, 0xfa, 0x3d, 0xca, 0x52, 0xeb, 0xf6, 0x24, 0xdd, 0x42, 0x13, 0xd2,
+	0x94, 0x87, 0x38, 0x81, 0x7e, 0xcc, 0xae, 0x0a, 0xcc, 0xb5, 0xc4, 0x42, 0x19, 0xa3, 0x07, 0x59,
+	0x6a, 0xd5, 0x27, 0x68, 0x2f, 0x66, 0x57, 0xb9, 0xe3, 0xb5, 0x24, 0x4f, 0x61, 0xab, 0x1a, 0x3c,
+	0x8c, 0x02, 0xb3, 0x8d, 0x8e, 0xdb, 0x59, 0x6a, 0x2d, 0x4f, 0xd1, 0x7e, 0xb9, 0xea, 0x59, 0x14,
+	0x94, 0x69, 0x4f, 0x64, 0x34, 0xcd, 0x13, 0x3b, 0xc2, 0xc2, 0xd6, 0xd2, 0xae, 0x4c, 0xea, 0xb4,
+	0xbf, 0x91, 0xd1, 0x14, 0xb3, 0x3e, 0x5a, 0x15, 0xc2, 0xc1, 0x6a, 0xdf, 0x11, 0xc2, 0x59, 0x0e,
+	0xe1, 0x90, 0x03, 0x80, 0xc0, 0x8d, 0xd8, 0x38, 0x99, 0xab, 0xe5, 0xbb, 0xe8, 0xbb, 0x99, 0xa5,
+	0x56, 0xc5, 0x4a, 0x0d, 0x25, 0x53, 0x25, 0xd6, 0xe0, 0x0e, 0x1e, 0x8c, 0x65, 0xb8, 0x53, 0xc2,
+	0xeb, 0xd1, 0x87, 0x26, 0xac, 0x80, 0x0f, 0x4b, 0xf8, 0xb0, 0x06, 0x3f, 0x36, 0x7b, 0x2b, 0xe0,
+	0xc7, 0x25, 0xfc, 0xb8, 0x06, 0x3f, 0x31, 0x37, 0x56, 0xc0, 0x4f, 0x4a, 0xf8, 0x89, 0x3a, 0x85,
+	0x91, 0xab, 0x0b, 0x62, 0xf6, 0xcb, 0x53, 0xb8, 0x30, 0xd2, 0x6e, 0xe4, 0xe6, 0xf5, 0x21, 0x5f,
+	0x14, 0x95, 0xbd, 0x70, 0x13, 0x7d, 0xa2, 0x36, 0xdf, 0x54, 0x9a, 0xbc, 0xb6, 0x23, 0x37, 0x41,
+	0x5a, 0x6d, 0x0f, 0xb6, 0x9f, 0x31, 0xf9, 0x5c, 0xb0, 0x04, 0xc3, 0x15, 0x9d, 0xea, 0x43, 0xe8,
+	0xb3, 0xd8, 0x4b, 0x5e, 0xce, 0x24, 0xf3, 0xbf, 0x76, 0xa5, 0x8b, 0xff, 0x82, 0x41, 0xeb, 0x46,
+	0xb2, 0x09, 0xcd, 0xf0, 0x85, 0xee, 0xc8, 0xcd, 0xf0, 0x45, 0xa5, 0xbf, 0xb5, 0x6a, 0xfd, 0xed,
+	0xaf, 0x06, 0x3c, 0xac, 0xaf, 0xf2, 0xae, 0xda, 0x9c, 0x0d, 0x9d, 0x84, 0xcd, 0x98, 0x2b, 0x75,
+	0x97, 0x43, 0x4c, 0x6e, 0xa1, 0x7a, 0xbc, 0xd5, 0xa2, 0xd6, 0xff, 0x4f, 0x8b, 0x3a, 0x00, 0x60,
+	0x49, 0xc2, 0x93, 0x31, 0xde, 0x50, 0x6d, 0x74, 0xc1, 0x0a, 0x96, 0x56, 0x6a, 0xa0, 0x7c, 0xca,
+	0x7d, 0x66, 0x7f, 0x09, 0xe4, 0x19, 0x93, 0x3f, 0xe8, 0xcd, 0x14, 0xac, 0x12, 0x58, 0x17, 0x61,
+	0x10, 0x6b, 0x32, 0x51, 0xae, 0x70, 0xd6, 0xac, 0x71, 0x16, 0x63, 0x61, 0xca, 0x08, 0x6f, 0xc3,
+	0xd8, 0x63, 0x58, 0xf7, 0x55, 0xf1, 0x9a, 0x7b, 0xad, 0xfd, 0x9e, 0xb3, 0x53, 0x42, 0x8b, 0xb0,
+	0xaa, 0x65, 0x53, 0xc4, 0xd8, 0xbf, 0x37, 0x60, 0xa3, 0x6a, 0x56, 0x3d, 0x37, 0x9e, 0x47, 0x47,
+	0xd5, 0xdb, 0x58, 0xe9, 0x14, 0xbf, 0x64, 0x17, 0xba, 0x7c, 0xc6, 0x12, 0x57, 0xf2, 0x44, 0x1f,
+	0x80, 0x85, 0xae, 0x3d, 0x1d, 0x5d, 0x82, 0xc2, 0xd3, 0x41, 0x4f, 0x27, 0x2f, 0x91, 0xba, 0x53,
+	0x35, 0xf1, 0xba, 0x44, 0x78, 0xcb, 0xea, 0xb1, 0x7a, 0x5b, 0xb5, 0xdf, 0x70, 0x5b, 0x29, 0x18,
+	0xf3, 0x78, 0xec, 0xe7, 0xf7, 0x4c, 0x53, 0xc3, 0x72, 0x13, 0x2d, 0x04, 0xe7, 0xd7, 0x26, 0x74,
+	0x8b, 0xad, 0x91, 0xcf, 0xa1, 0x8d, 0x0d, 0x9f, 0xec, 0x2c, 0xdd, 0x12, 0xba, 0x48, 0xbb, 0xef,
+	0xdd, 0xb2, 0xe7, 0xd4, 0xdb, 0x6b, 0xe4, 0x7b, 0xd8, 0xaa, 0xd4, 0x24, 0x67, 0xa9, 0x44, 0xdf,
+	0x2e, 0xf8, 0xee, 0x07, 0x77, 0xcc, 0x2e, 0x22, 0x7e, 0x07, 0x1b, 0xd5, 0x1f, 0x83, 0xd4, 0x1d,
+	0x96, 0x7f, 0xcb, 0xdd, 0xc1, 0x5d, 0xd3, 0xd5, 0x80, 0xd5, 0x77, 0x4b, 0x35, 0xe0, 0x8a, 0xb7,
+	0x52, 0x35, 0xe0, 0xaa, 0xe7, 0x8e, 0xbd, 0x36, 0x32, 0x5f, 0xbd, 0x1e, 0xac, 0xfd, 0xf3, 0x7a,
+	0xd0, 0x78, 0x75, 0x33, 0x68, 0xfc, 0x76, 0x33, 0x68, 0xfc, 0x71, 0x33, 0x68, 0xfc, 0xf2, 0xe7,
+	0x60, 0xed, 0xa2, 0x83, 0x4f, 0xb8, 0xe1, 0x7f, 0x01, 0x00, 0x00, 0xff, 0xff, 0xa3, 0x0f, 0x32,
+	0x60, 0x0d, 0x0a, 0x00, 0x00,
 }
