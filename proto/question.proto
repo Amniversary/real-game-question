@@ -44,12 +44,11 @@ message IndexResponse {
     int64 today_shares = 4 [(gogoproto.jsontag) = "today_shares"];
     int64 goods = 5 [(gogoproto.jsontag) = "goods"];
     string sign = 6 [(gogoproto.jsontag) = "sign"];
-    repeated string gift = 7 [(gogoproto.jsontag) = "gift"];
-    repeated GiftInfo gift_info = 8 [(gogoproto.jsontag) = "gift_info"];
-    IndexConfig config = 9 [(gogoproto.jsontag) = "config"];
-    int64 play_time = 10 [(gogoproto.jsontag) = "play_time"];
-    int64 ss = 11 [(gogoproto.jsontag) = "ss"];
-    Rank rank = 12;
+    repeated GiftInfo gift_info = 7 [(gogoproto.jsontag) = "gift_info"];
+    IndexConfig config = 8 [(gogoproto.jsontag) = "config"];
+    int64 play_time = 9 [(gogoproto.jsontag) = "play_time"];
+    int64 ss = 10 [(gogoproto.jsontag) = "ss"];
+    Rank rank = 11;
 }
 
 message Rank {

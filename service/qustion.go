@@ -29,8 +29,8 @@ var (
 	}
 
 	RankInfo = []*proto.RankInfo{
-		&proto.RankInfo{PlayTimes: 743, NickName: "Gavean", AvatarUrl: "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKnJwJ6lNxJXrIMiaLVibknkBicLZLmZ2HcWrRwvsE5icFia0qEUuVqEC2cuG3CAeI1aYrcIN3O1rRepLQ/0"},
-		&proto.RankInfo{PlayTimes: 671, NickName: "东巴拉", AvatarUrl: "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTII0gdD83SrWYpNcVicShcdovJUfENyPtdenAhnPJvUJ9EED3PTpbzMUxTCwH1pKqwefia8CUiaU2rQA/0"},
+		&proto.RankInfo{PlayTimes: 743, NickName: "Gavean", AvatarUrl: "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTLWveUcua5t8zvZDoX9cSrOFgfb4pNel6pF0ia2xCfaGJXedDJpwdxTKawJiaEMicDXav96BYAZnRUWQ/0"},
+		&proto.RankInfo{PlayTimes: 671, NickName: "东巴拉", AvatarUrl: "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJUqvktkiaB0poEJISuA4f6VcGjFBliarSl1DjbLJibVIvw9QQ7RzPhySwrKvRo3TKdxODNCst1RWPIQ/0"},
 		&proto.RankInfo{PlayTimes: 411, NickName: "伟仔", AvatarUrl: "https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83eprCjIwMn5f9CyL4z4lJK8NIbymn4XKjnf17lGkIRiawgS1nSpOuPU8sAiaGhulibqKduTOICiaibmWPMA/0"},
 		&proto.RankInfo{PlayTimes: 287, NickName: "漫步人生", AvatarUrl: "https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83eq8Pu4XpTRQ9hRAWISSKaDnZKTCzwSPJVicsIq6seXic5Lc8j9yHg1xh9WMyOaQCpIgydnDbYwDKLlA/0"},
 		&proto.RankInfo{PlayTimes: 267, NickName: "心简单，世界就简单°", AvatarUrl: "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTLmiaNPYbLOk7GFGmmx1Hw6VuuD1COmoGibbd8JibnyXibpIbpuAu7DeLwPz3ddDeArC6iaLmgYZ3uhicmA/0"},
@@ -42,10 +42,10 @@ var (
 	RankList = []*proto.RankList{
 		&proto.RankList{Goods: 23, NickName: "熊二爱西瓜", AvatarUrl: "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTLz2MxhMpmo27nI3KfznJPgczf1Jl160HpSGaaSWGoYEcN2Ypx1o0cibLSiaVqaodZ980CnSG87mCVw/0"},
 		&proto.RankList{Goods: 21, NickName: "红豆小姐", AvatarUrl: "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTL63dLLFyh9NCWcTBG6k5CeygMmhlqzYoBA9Pn8bo9ukUtRZsozAmSIKYstscAo5sXl3CWCHSzfiaA/0"},
-		&proto.RankList{Goods: 18, NickName: "落伍小女人", AvatarUrl: "https://wx.qlogo.cn/mmopen/vi_32/DV7uibHPaz20Nsxic8tzmuVafgl2clJXdfD2Cwxbyb80EibCponj9Mh9xHBLOcww44NRVMLYpdMF4x0axYv7CEl9w/0"},
+		&proto.RankList{Goods: 18, NickName: "落伍小女人", AvatarUrl: "https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83eq1r0iaCPgAaoSbicNaaNTawp9VBVlSJHhQCwEib60zIenmaHxZRO6Ez4Okv92DPXOBuibnjVuibmicqWJg/0"},
 		&proto.RankList{Goods: 17, NickName: "阿呆的阿傻", AvatarUrl: "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKmXoYDRv98a26XwybLETD2sIEgTrCzw0NokqbyQlpLXOTGt9oKFApHoQPyF0TNqA4tflnIc1MiaWQ/0"},
 		&proto.RankList{Goods: 17, NickName: "朱春芽", AvatarUrl: "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJfDyRaMfF1JbfYvALt5GwMceia2WxdOOg34MbR75RzKCEhkicaTewiauAicIagJA1tHSASzK1SiaMsHpQ/0"},
-		&proto.RankList{Goods: 14, NickName: "🍁詩億語🍑🍉", AvatarUrl: "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJ4hnPDbRhZDbC0WVgB5sStNVvKgGibib9zbOx72okQs7mfT5joaYhYsOHSXueQicW5icTh2wFM78gHBA/0"},
+		&proto.RankList{Goods: 14, NickName: "🍁詩億語🍑🍉", AvatarUrl: "https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83epgkfwib2s9d2GJfbl6TNCahTLo2JZDKvGaBA4jS42KtI1NdHA0dkoibIwicBiaNNgNXRAteoib2jc2GZQ/0"},
 		&proto.RankList{Goods: 11, NickName: "Gex", AvatarUrl: "https://wx.qlogo.cn/mmopen/vi_32/Zd0jstSaf4uxHHvj7rsZPskHD1H0PH5FsEJE0CdibT7xDEicbRJAkq96sL8bqZQzgOLIicCM0GPKjjNHibgor6I8yg/0"},
 		&proto.RankList{Goods: 10, NickName: "七七", AvatarUrl: "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTK8UYbedASKg1eXSPTDjwf4WbjibRKCDX3ERtCUlUJZgjRUNBIwYUCJUelYADXf78azicWBk2nZFiarA/0"},
 	}
