@@ -262,16 +262,11 @@ func (q *Question) UploadResult(ctx context.Context, req *proto.UploadResultRequ
 		rsp.Status.Msg = GET_USER_INFO_MSG
 		return nil
 	}
-	if req.Score > user.Success {
-		user.Success = req.Score
-		if req.Score > user.Score {
-			user.Score = req.Score
-		}
-		if err := models.UpdateUserInfo(user); err != nil {
-			return err
-		}
-	} else {
-		user.Success = 0
+	if req.GameStatusSign != user.GameSign {
+		log.Printf("")
+	}
+	if req.RightNums > user.Score {
+		user.Score = req.RightNums
 		if err := models.UpdateUserInfo(user); err != nil {
 			return err
 		}
