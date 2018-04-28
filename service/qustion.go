@@ -131,7 +131,7 @@ func (q *Question) GetUserShare(ctx context.Context, req *proto.GetUserShareRequ
 	nowTime := now.BeginningOfDay().Unix()
 	isShareSuccess := false
 	shareInfo := &models.UserShare{UserId: req.UserId, OpenGid: userShare.OpenGid}
-	shareInfo, Ok := models.GetUserShare(shareInfo)
+	Ok := models.GetUserShare(shareInfo)
 	if !Ok {
 		isShareSuccess = true
 		shareInfo.Num = 1

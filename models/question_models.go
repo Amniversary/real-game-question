@@ -7,14 +7,14 @@ import (
 	proto "github.com/Amniversary/real-game-question/proto"
 )
 
-func GetUserShare(userShare *UserShare) (*UserShare, bool) {
+func GetUserShare(userShare *UserShare) bool {
 	if err := db.Where("user_id = ? and open_gid = ?", userShare.UserId, userShare.OpenGid).First(&userShare).Error; err != nil {
 		log.Printf("query first user share info err: [%v]", err)
 	}
 	if userShare.ID == 0 {
-		return nil, false
+		return false
 	}
-	return userShare, true
+	return true
 }
 
 func GetUserShareCount(userId int64, nowTime int64) int64 {
