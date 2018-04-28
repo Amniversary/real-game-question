@@ -57,14 +57,37 @@ message IndexConfig {
     string new_share_txt = 4 [(gogoproto.jsontag) = "new_share_txt"];
     string index_share_img = 5 [(gogoproto.jsontag) = "index_share_img"];
     string index_html_title1 = 6 [(gogoproto.jsontag) = "index_html_title1"];
-    string index_html_title2 = 7 [(gogoproto.jsontag) = "index_html_title2"];
-    string game_rule1 = 8 [(gogoproto.jsontag) = "game_rule1"];
-    string game_rule2 = 9 [(gogoproto.jsontag) = "game_rule2"];
-    string game_rule3 = 10 [(gogoproto.jsontag) = "game_rule3"];
-    string game_rule4 = 11 [(gogoproto.jsontag) = "game_rule4"];
-    string game_rule5 = 12 [(gogoproto.jsontag) = "game_rule5"];
-    int64 max_share = 13 [(gogoproto.jsontag) = "max_share"];
-    string index_bar_title = 14 [(gogoproto.jsontag) = "index_html_title1"];
+    string game_rule1 = 7 [(gogoproto.jsontag) = "game_rule1"];
+    string game_rule2 = 8 [(gogoproto.jsontag) = "game_rule2"];
+    string game_rule3 = 9 [(gogoproto.jsontag) = "game_rule3"];
+    string game_rule4 = 10 [(gogoproto.jsontag) = "game_rule4"];
+    string game_rule5 = 11 [(gogoproto.jsontag) = "game_rule5"];
+    int64 max_share = 12 [(gogoproto.jsontag) = "max_share"];
+    string index_bar_title = 13 [(gogoproto.jsontag) = "index_html_title1"];
+    string success_share_text5 = 14;
+    string user_html_title1 = 15;
+    string index_person_share_title = 16;
+    string game_person_share_title = 17;
+    string user_person_share_title = 18;
+    string game_failed_share_title = 19;
+    string game_success_share_title = 20;
+    string game_failed_share_img = 21;
+    string game_success_share_img = 22;
+    string failed_share_text1 = 23;
+    string failed_share_text2 = 24;
+    string failed_share_text3 = 25;
+    string failed_share_text4 = 26;
+    string success_share_text1 = 27;
+    string success_share_text2 = 28;
+    string success_share_text3 = 29;
+    string success_share_text4 = 30;
+    string game_bar_title = 31;
+    string user_share_title = 32;
+    string user_share_img = 33;
+    string user_bar_title = 34;
+    string gift_bar_title = 35;
+    string wz_if = 36;
+    string tz_type = 37;
 }
 
 // user_share request
