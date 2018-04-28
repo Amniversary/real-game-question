@@ -13,6 +13,10 @@ It has these top-level messages:
 	UploadResultResponse
 	IndexRequest
 	IndexResponse
+	Rank
+	RankInfo
+	RankList
+	GiftInfo
 	IndexConfig
 	GetUserShareRequest
 	GetUserShareResponse
