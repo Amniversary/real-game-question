@@ -16,21 +16,20 @@ type Question struct {
 }
 
 var (
-	remindList = []string{
-		"登录自动获得一次挑战机会，每天可以分享到10个不同的群，获得10次免费机会。",
-		"由于微信版本更新，可能会导致小程序的某些功能出现异常，请退出微信后重新打开。",
-		"挑战过程中答题时间会随着挑战进行而缩短。",
-		"挑战过程中，在规定时间内连续判断对40道题简单的数字加减题，挑战成功。",
-		"挑战成功后，您可以免费挑选娃娃，（如果挑选的娃娃缺货，将随机发货），填写领取信息，客服按照申请顺序发货，娃娃包邮！",
-	}
-
-	IndexTitle      = "挑战成功赢娃娃"
-	IndexShareTitle = "约群朋友一起来挑战"
-	NewShareTxt     = "邀请好友一起来挑战"
-	IndexShareImg   = ""
-	IndexHtmlTitle1 = ""
-	IndexHtmlTitle2 = ""
-	IndexBarTitle   = ""
+	GiftShow        int64 = 1
+	MaxShare        int64 = 10
+	IndexTitle            = "挑战成功赢娃娃"
+	IndexShareTitle       = "约群朋友一起来挑战"
+	NewShareTxt           = "邀请好友一起来挑战"
+	IndexShareImg         = ""
+	IndexHtmlTitle1       = ""
+	IndexHtmlTitle2       = ""
+	IndexBarTitle         = ""
+	GameRule1             = "登录自动获得一次挑战机会，每天可以分享到10个不同的群，获得10次免费机会。"
+	GameRule2             = "由于微信版本更新，可能会导致小程序的某些功能出现异常，请退出微信后重新打开。"
+	GameRule3             = "挑战过程中答题时间会随着挑战进行而缩短。"
+	GameRule4             = "挑战过程中，在规定时间内连续判断对40道题简单的数字加减题，挑战成功。"
+	GameRule5             = "挑战成功后，您可以免费挑选娃娃，（如果挑选的娃娃缺货，将随机发货），填写领取信息，客服按照申请顺序发货，娃娃包邮！"
 )
 
 // todo: init user info
@@ -44,7 +43,13 @@ func (q *Question) Index(ctx context.Context, req *proto.IndexRequest, rsp *prot
 	rsp.Config.IndexHtmlTitle1 = IndexHtmlTitle1
 	rsp.Config.IndexHtmlTitle2 = IndexHtmlTitle2
 	rsp.Config.IndexBarTitle = IndexBarTitle
-
+	rsp.Config.GameRule1 = GameRule1
+	rsp.Config.GameRule2 = GameRule2
+	rsp.Config.GameRule3 = GameRule3
+	rsp.Config.GameRule4 = GameRule4
+	rsp.Config.GameRule5 = GameRule5
+	rsp.Config.MaxShare = MaxShare
+	rsp.Config.GiftShow = GiftShow
 	// get user info
 	userClient := userrpc.NewUserService(USER_SERVER_NAME, q.Client)
 	userInfo, err := userClient.GetUserList(ctx, &userrpc.GetUserListRequest{
@@ -86,7 +91,6 @@ func (q *Question) Index(ctx context.Context, req *proto.IndexRequest, rsp *prot
 	rsp.Chance = user.Chance
 	rsp.Score = user.Score
 	rsp.Success = user.Success
-	rsp.RemindList = remindList
 	return nil
 }
 
