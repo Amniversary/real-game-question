@@ -23,6 +23,7 @@ var (
 		"挑战过程中，在规定时间内连续判断对40道题简单的数字加减题，挑战成功。",
 		"挑战成功后，您可以免费挑选娃娃，（如果挑选的娃娃缺货，将随机发货），填写领取信息，客服按照申请顺序发货，娃娃包邮！",
 	}
+
 	IndexTitle      = "挑战成功赢娃娃"
 	IndexShareTitle = "约群朋友一起来挑战"
 	NewShareTxt     = "邀请好友一起来挑战"
@@ -35,7 +36,7 @@ var (
 // todo: init user info
 func (q *Question) Index(ctx context.Context, req *proto.IndexRequest, rsp *proto.IndexResponse) error {
 	rsp.Status = &proto.RspStatus{Code: RSP_SUCCESS}
-
+	rsp.Config = &proto.IndexConfig{}
 	rsp.Config.IndexTitle = IndexTitle
 	rsp.Config.IndexShareTitle = IndexShareTitle
 	rsp.Config.NewShareTxt = NewShareTxt
