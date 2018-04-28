@@ -89,7 +89,7 @@ message IndexConfig {
     string game_rule4 = 10 [(gogoproto.jsontag) = "game_rule4"];
     string game_rule5 = 11 [(gogoproto.jsontag) = "game_rule5"];
     int64 max_share = 12 [(gogoproto.jsontag) = "max_share"];
-    string index_bar_title = 13 [(gogoproto.jsontag) = "index_html_title1"];
+    string index_bar_title = 13 [(gogoproto.jsontag) = "index_bar_title"];
     string success_share_text5 = 14;
     string user_html_title1 = 15;
     string index_person_share_title = 16;
