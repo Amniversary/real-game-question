@@ -202,7 +202,7 @@ func (q *Question) GetQuestionList(ctx context.Context, req *proto.GetQuestionRe
 	user.GameNum += 1
 	user.Chance -= 1
 	user.GameSign = fmt.Sprintf("%d_%d_%d", time.Now().UnixNano(), user.UserId, user.GameNum)
-	if err := models.UpdateUserInfo(user); err != nil {
+	if err := models.UpdateUserGameInfo(user); err != nil {
 		return err
 	}
 	data, err := models.GetQuestionList()

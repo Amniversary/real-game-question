@@ -68,6 +68,18 @@ func UpdateUserInfo(user *UserGame) error {
 	return nil
 }
 
+func UpdateUserGameInfo(user *UserGame) error {
+	err := db.Model(&UserGame{}).Where("user_id = ?", user.UserId).Updates(map[string]interface{}{
+		"game_num":  user.GameNum,
+		"chance":    user.Chance,
+		"game_sign": user.GameSign,
+	}).Error
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 func GetQuestionList() ([]*proto.QuestionList, error) {
 	var data []*proto.QuestionList
 	for i := 1; i < 5; i++ {
