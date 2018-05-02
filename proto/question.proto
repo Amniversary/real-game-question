@@ -15,6 +15,7 @@ service Question {
     rpc GetQuestionList (GetQuestionRequest) returns (GetQuestionResponse) {}
     rpc GetUserShare (GetUserShareRequest) returns (GetUserShareResponse) {}
     rpc UploadResult (UploadResultRequest) returns (UploadResultResponse) {}
+    rpc GetGiftList (GiftListRequest) returns (GiftListResponse) {}
 }
 
 message RspStatus {
@@ -22,6 +23,16 @@ message RspStatus {
     string msg = 2;
 }
 
+message GiftListRequest {
+
+}
+
+message GiftListResponse {
+    RspStatus status = 1 [(gogoproto.jsontag) == "status"];
+    repeated GiftInfo gift_info = 2 [(gogoproto.jsontag) == "gift_info"];
+}
+
+// upload result req
 message UploadResultRequest {
     int64 userId = 1 [(gogoproto.jsontag) = "userId"];
     int64 right_nums = 2 [(gogoproto.jsontag) = "right_nums"];

@@ -273,13 +273,13 @@ func (q *Question) GetUserShare(ctx context.Context, req *proto.GetUserShareRequ
 			return err
 		}
 	}
-	rsp.Repeat = 0
+	rsp.Repeat = 1
 	if isShareSuccess {
 		user.Chance += 1
 		if err := models.UpdateUserInfo(user); err != nil {
 			return err
 		}
-		rsp.Repeat = 1
+		rsp.Repeat = 0
 	}
 	rsp.ErrorCode = 1
 	rsp.Chance = user.Chance
@@ -313,5 +313,15 @@ func (q *Question) UploadResult(ctx context.Context, req *proto.UploadResultRequ
 			return err
 		}
 	}
+	if req.RightNums == 40 {
+		user.Success += 1
+		if err := models.UpdateUserInfo(user); err != nil {
+			return err
+		}
+	}
 	return nil
+}
+
+func GetGiftList() {
+
 }
