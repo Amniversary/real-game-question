@@ -50,7 +50,7 @@ var (
 		&proto.RankList{Goods: 10, NickName: "七七", AvatarUrl: "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTK8UYbedASKg1eXSPTDjwf4WbjibRKCDX3ERtCUlUJZgjRUNBIwYUCJUelYADXf78azicWBk2nZFiarA/0"},
 	}
 
-	GiftShow              int64 = 1
+	GiftShow              int64 = 0
 	MaxShare              int64 = 10
 	ChallengeTimes        int64 = 50000
 	IndexTitle                  = "挑战成功赢娃娃"
@@ -178,7 +178,7 @@ func (q *Question) Index(ctx context.Context, req *proto.IndexRequest, rsp *prot
 		}
 	}
 	rsp.PlayTime = user.GameNum
-	rsp.Ss = 1
+	rsp.Ss = 0
 	rsp.Sign = user.Sign
 	rsp.TodayShares = models.GetUserShareCount(req.UserId, now.BeginningOfDay().Unix())
 	rsp.Chance = user.Chance
