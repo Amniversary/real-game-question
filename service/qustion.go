@@ -90,6 +90,7 @@ var (
 	WzIf                        = "0"
 	TzType                      = "1"
 	FailedClick                 = "2"
+	KefuTitle					= "联系客服"
 )
 
 // todo: init user info
@@ -135,6 +136,7 @@ func (q *Question) Index(ctx context.Context, req *proto.IndexRequest, rsp *prot
 	rsp.Config.GiftBarTitle = GiftBarTitle
 	rsp.Config.FailedClick = FailedClick
 	rsp.Config.IndexShareTxt = IndexShareTxt
+	rsp.Config.KefuTitle = KefuTitle
 	rsp.GiftInfo = GiftList
 	rsp.Rank = &proto.Rank{RankList: RankList, RankInfo: RankInfo}
 	times := models.GetChallengeTimes()

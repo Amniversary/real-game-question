@@ -153,6 +153,7 @@ message IndexConfig {
     string tz_type = 37;
     string failed_click = 38;
     string index_share_txt = 39;
+    string kefu_title = 40;
 }
 
 // user_share request
