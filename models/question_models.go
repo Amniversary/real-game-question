@@ -97,3 +97,9 @@ func GetQuestionList() ([]*proto.QuestionList, error) {
 	}
 	return data, nil
 }
+
+func GetChallengeTimes() int64 {
+	var num int64
+	db.Table("user_game").Select("sum(game_num) as num").Limit(1).Row().Scan(&num)
+	return num
+}

@@ -50,6 +50,7 @@ message IndexResponse {
     int64 play_time = 9 [(gogoproto.jsontag) = "play_time"];
     int64 ss = 10 [(gogoproto.jsontag) = "ss"];
     Rank rank = 11;
+    int64 challenge_times = 12 [(gogoproto.jsontag) = "challenge_times"];
 }
 
 message Rank {

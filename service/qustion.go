@@ -49,8 +49,10 @@ var (
 		&proto.RankList{Goods: 11, NickName: "Gex", AvatarUrl: "https://wx.qlogo.cn/mmopen/vi_32/Zd0jstSaf4uxHHvj7rsZPskHD1H0PH5FsEJE0CdibT7xDEicbRJAkq96sL8bqZQzgOLIicCM0GPKjjNHibgor6I8yg/0"},
 		&proto.RankList{Goods: 10, NickName: "七七", AvatarUrl: "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTK8UYbedASKg1eXSPTDjwf4WbjibRKCDX3ERtCUlUJZgjRUNBIwYUCJUelYADXf78azicWBk2nZFiarA/0"},
 	}
+
 	GiftShow              int64 = 1
 	MaxShare              int64 = 10
+	ChallengeTimes        int64 = 50000
 	IndexTitle                  = "挑战成功赢娃娃"
 	IndexShareTitle             = "[%s@我]发起挑战，会算1+2=？么..."
 	NewShareTxt                 = "邀请好友一起来挑战"
@@ -135,6 +137,8 @@ func (q *Question) Index(ctx context.Context, req *proto.IndexRequest, rsp *prot
 	rsp.Config.IndexShareTxt = IndexShareTxt
 	rsp.GiftInfo = GiftList
 	rsp.Rank = &proto.Rank{RankList: RankList, RankInfo: RankInfo}
+	times := models.GetChallengeTimes()
+	rsp.ChallengeTimes = times + ChallengeTimes
 	// get user info
 	//userClient := userrpc.NewUserService(USER_SERVER_NAME, q.Client)
 	//userInfo, err := userClient.GetUserList(ctx, &userrpc.GetUserListRequest{
