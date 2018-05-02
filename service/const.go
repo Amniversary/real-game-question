@@ -15,4 +15,5 @@ const (
 
 	SHARE_SUCCESS_MSG  = "分享成功，挑战次数+1"
 	SHARE_REPEATED_MSG = "本群今日已经分享过了"
+	USER_GET_GIFT_NO_LIMIT = "用户领取次数已经用完"
 )

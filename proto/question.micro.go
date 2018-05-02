@@ -9,6 +9,11 @@ It is generated from these files:
 
 It has these top-level messages:
 	RspStatus
+	GetGiftRequest
+	GetGiftResponse
+	AwardRecordRequest
+	AwardRecordResponse
+	Award
 	UploadResultRequest
 	UploadResultResponse
 	IndexRequest
@@ -60,6 +65,8 @@ type QuestionService interface {
 	GetQuestionList(ctx context.Context, in *GetQuestionRequest, opts ...client.CallOption) (*GetQuestionResponse, error)
 	GetUserShare(ctx context.Context, in *GetUserShareRequest, opts ...client.CallOption) (*GetUserShareResponse, error)
 	UploadResult(ctx context.Context, in *UploadResultRequest, opts ...client.CallOption) (*UploadResultResponse, error)
+	GetAwardRecord(ctx context.Context, in *AwardRecordRequest, opts ...client.CallOption) (*AwardRecordResponse, error)
+	GetGift(ctx context.Context, in *GetGiftRequest, opts ...client.CallOption) (*GetGiftResponse, error)
 }
 
 type questionService struct {
@@ -120,6 +127,26 @@ func (c *questionService) UploadResult(ctx context.Context, in *UploadResultRequ
 	return out, nil
 }
 
+func (c *questionService) GetAwardRecord(ctx context.Context, in *AwardRecordRequest, opts ...client.CallOption) (*AwardRecordResponse, error) {
+	req := c.c.NewRequest(c.name, "Question.GetAwardRecord", in)
+	out := new(AwardRecordResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *questionService) GetGift(ctx context.Context, in *GetGiftRequest, opts ...client.CallOption) (*GetGiftResponse, error) {
+	req := c.c.NewRequest(c.name, "Question.GetGift", in)
+	out := new(GetGiftResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // Server API for Question service
 
 type QuestionHandler interface {
@@ -127,6 +154,8 @@ type QuestionHandler interface {
 	GetQuestionList(context.Context, *GetQuestionRequest, *GetQuestionResponse) error
 	GetUserShare(context.Context, *GetUserShareRequest, *GetUserShareResponse) error
 	UploadResult(context.Context, *UploadResultRequest, *UploadResultResponse) error
+	GetAwardRecord(context.Context, *AwardRecordRequest, *AwardRecordResponse) error
+	GetGift(context.Context, *GetGiftRequest, *GetGiftResponse) error
 }
 
 func RegisterQuestionHandler(s server.Server, hdlr QuestionHandler, opts ...server.HandlerOption) {
@@ -135,6 +164,8 @@ func RegisterQuestionHandler(s server.Server, hdlr QuestionHandler, opts ...serv
 		GetQuestionList(ctx context.Context, in *GetQuestionRequest, out *GetQuestionResponse) error
 		GetUserShare(ctx context.Context, in *GetUserShareRequest, out *GetUserShareResponse) error
 		UploadResult(ctx context.Context, in *UploadResultRequest, out *UploadResultResponse) error
+		GetAwardRecord(ctx context.Context, in *AwardRecordRequest, out *AwardRecordResponse) error
+		GetGift(ctx context.Context, in *GetGiftRequest, out *GetGiftResponse) error
 	}
 	type Question struct {
 		question
@@ -161,4 +192,12 @@ func (h *questionHandler) GetUserShare(ctx context.Context, in *GetUserShareRequ
 
 func (h *questionHandler) UploadResult(ctx context.Context, in *UploadResultRequest, out *UploadResultResponse) error {
 	return h.QuestionHandler.UploadResult(ctx, in, out)
+}
+
+func (h *questionHandler) GetAwardRecord(ctx context.Context, in *AwardRecordRequest, out *AwardRecordResponse) error {
+	return h.QuestionHandler.GetAwardRecord(ctx, in, out)
+}
+
+func (h *questionHandler) GetGift(ctx context.Context, in *GetGiftRequest, out *GetGiftResponse) error {
+	return h.QuestionHandler.GetGift(ctx, in, out)
 }

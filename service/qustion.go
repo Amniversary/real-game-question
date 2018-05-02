@@ -321,7 +321,74 @@ func (q *Question) UploadResult(ctx context.Context, req *proto.UploadResultRequ
 	}
 	return nil
 }
+// todo: 领奖列表
+func (q *Question) GetAwardRecord(ctx context.Context, req *proto.AwardRecordRequest, rsp *proto.AwardRecordResponse) error {
+	rsp.Status = &proto.RspStatus{Code: RSP_SUCCESS}
+	user := &models.UserGame{UserId: req.UserId}
+	has := models.GetUser(user)
+	if !has {
+		log.Printf("get user game info err.")
+		rsp.Status.Code = RSP_ERROR
+		rsp.Status.Msg = GET_USER_INFO_MSG
+		return nil
+	}
 
-func GetGiftList() {
+	result, err := models.GetAwardRecordList(req.UserId)
+	if err != nil {
+		log.Printf("get award record list err: [%v]", err)
+		return err
+	}
+	rsp.AwardRecord = make([]*proto.Award, len(result))
+	for i := 0; i < len(result); i ++ {
+		rsp.AwardRecord[i] = &proto.Award{
+			Img: result[i].GiftImgUrl,
+			Name:result[i].GiftName,
+			Intime: time.Unix(result[i].CreateAt, 0).Format("2006-01-02 15:04:05"),
+		}
+		if i == (len(result) - 1) {
+			rsp.RealName = result[i].RealName
+			rsp.Address = result[i].Address
+			rsp.Phone = result[i].Phone
+		}
+	}
+	return nil
+}
+// todo: 领取奖品
+func (q *Question) GetGift(ctx context.Context, req *proto.GetGiftRequest, rsp *proto.GetGiftResponse) error {
+	rsp.Status = &proto.RspStatus{Code: RSP_SUCCESS}
+	user := &models.UserGame{UserId: req.UserId}
+	has := models.GetUser(user)
+	if !has {
+		log.Printf("get user game info err.")
+		rsp.Status.Code = RSP_ERROR
+		rsp.Status.Msg = GET_USER_INFO_MSG
+		return nil
+	}
+	if user.Success >= 0 {
+		log.Printf("user get gift limit err: [%v]", user.Success)
+		rsp.Status.Code = RSP_ERROR
+		rsp.Status.Msg = USER_GET_GIFT_NO_LIMIT
+		return nil
+	}
+	user.Success -= 1
+	user.Goods += 1
+	if err := models.UpdateUserInfo(user); err != nil {
+		return err
+	}
 
+	giftResult := &models.GiftResult{
+		UserId:     req.UserId,
+		GiftId:     req.GiftId,
+		GiftImgUrl: req.GiftImgUrl,
+		GiftName:   req.GiftName,
+		RealName:   req.RealName,
+		Phone:      req.Phone,
+		Address:    req.Address,
+	}
+	if err := models.CreateAwardRecord(giftResult); err != nil {
+		log.Printf("create Award record err: [%v]", err)
+		return err
+	}
+
+	return nil
 }

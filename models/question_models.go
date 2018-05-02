@@ -103,3 +103,22 @@ func GetChallengeTimes() int64 {
 	db.Table("user_game").Select("sum(game_num) as num").Limit(1).Row().Scan(&num)
 	return num
 }
+
+func CreateAwardRecord(record *GiftResult) error {
+	record.CreateAt = time.Now().Unix()
+	if err := db.Create(&record).Error; err != nil {
+		return err
+	}
+	return nil
+}
+
+func GetAwardRecordList(userId int64) ([]*GiftResult, error) {
+	var info []*GiftResult
+	err := db.Table("gift_result").
+		Where("user_id = ?", userId).
+		Find(&info).Error
+	if err != nil {
+		return nil, err
+	}
+	return info, nil
+}
