@@ -207,8 +207,10 @@ func (q *Question) GetQuestionList(ctx context.Context, req *proto.GetQuestionRe
 	}
 	user.GameNum += 1
 	user.Chance -= 1
-	if user.Chance <= 0 {
-
+	if user.Chance < 0 {
+		rsp.Status.Code =RSP_ERROR
+		rsp.Status.Msg = USER_PLAYES_NO_LIMIT
+		return nil
 	}
 	user.GameSign = fmt.Sprintf("%d_%d_%d", time.Now().UnixNano(), user.UserId, user.GameNum)
 	if err := models.UpdateUserGameInfo(user); err != nil {
