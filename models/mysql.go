@@ -35,5 +35,5 @@ func openDb(c *config.Config) {
 }
 
 func initTable() {
-	db.AutoMigrate(new(Question), new(UserShare), new(UserGame))
+	db.AutoMigrate(new(Question), new(UserShare), new(UserGame), new(GiftResult))
 }

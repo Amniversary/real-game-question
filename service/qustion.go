@@ -183,7 +183,7 @@ func (q *Question) Index(ctx context.Context, req *proto.IndexRequest, rsp *prot
 	rsp.TodayShares = models.GetUserShareCount(req.UserId, now.BeginningOfDay().Unix())
 	rsp.Chance = user.Chance
 	rsp.Score = user.Score
-	rsp.Goods = user.Goods
+	rsp.Goods = user.Success
 	return nil
 }
 

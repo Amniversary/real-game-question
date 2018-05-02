@@ -48,3 +48,20 @@ type UserShare struct {
 func (UserShare) TableName() string {
 	return "user_share"
 }
+
+type GiftResult struct {
+	ID         int64  `gorm:"primary_key" json:"id"`
+	UserId     int64  `gorm:"not null; default:0; type:int; index" json:"userId"`
+	GiftId     int64  `gorm:"not null; default:0; type:int; index" json:"giftId"`
+	GiftImgUrl string `gorm:"not null; default:''; type:varchar(256)" json:"gift_img_url"`
+	GiftName   string `gorm:"not null; default:''; type:varchar(128)" json:"gift_name"`
+	RealName   string `gorm:"not null; default:''; type:varchar(128)" json:"real_name"`
+	Phone      string `gorm:"not null; default:''; type:varchar(128)" json:"phone"`
+	Address    string `gorm:"not null; default:''; type:varchar(256)" json:"address"`
+	CreateAt   int64  `gorm:"not null; default:0; type:int" json:"create_at"`
+}
+
+// todo: 礼物中奖表
+func (GiftResult) TableName() string {
+	return "gift_result"
+}
