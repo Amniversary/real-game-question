@@ -7,6 +7,6 @@ import (
 )
 
 func main() {
-	log.SetFlags(log.Lshortfile | log.LstdFlags)
+	log.SetFlags(log.Lshortfile)
 	service.Run(config.NewConfig())
 }
