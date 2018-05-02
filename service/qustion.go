@@ -11,6 +11,7 @@ import (
 	"github.com/jinzhu/now"
 	proto "github.com/Amniversary/real-game-question/proto"
 	userrpc "github.com/reechou/real-api-gateway/gateway/proto"
+	"math/rand"
 )
 
 type Question struct {
@@ -140,7 +141,7 @@ func (q *Question) Index(ctx context.Context, req *proto.IndexRequest, rsp *prot
 	rsp.GiftInfo = GiftList
 	rsp.Rank = &proto.Rank{RankList: RankList, RankInfo: RankInfo}
 	times := models.GetChallengeTimes()
-	rsp.ChallengeTimes = times + ChallengeTimes
+	rsp.ChallengeTimes = times + ChallengeTimes + rand.Int63n(3000)
 	// get user info
 	userClient := userrpc.NewUserService(USER_SERVER_NAME, q.Client)
 	userInfo, err := userClient.GetUserList(ctx, &userrpc.GetUserListRequest{
