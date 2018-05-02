@@ -86,7 +86,7 @@ func GetQuestionList() ([]*proto.QuestionList, error) {
 		var info []*proto.QuestionList
 		err := db.Table("question").
 			Select("`num1`, `operator`, `num2`, `result`, `success`, `seconds`").
-			Where("`level` = ?", i).
+			Where("`level` = ?", 1).
 			Limit(10).Order("rand()").Find(&info).Error
 		if err != nil {
 			return nil, err
