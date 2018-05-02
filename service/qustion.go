@@ -364,7 +364,7 @@ func (q *Question) GetGift(ctx context.Context, req *proto.GetGiftRequest, rsp *
 		rsp.Status.Msg = GET_USER_INFO_MSG
 		return nil
 	}
-	if user.Success >= 0 {
+	if user.Success <= 0 {
 		log.Printf("user get gift limit err: [%v]", user.Success)
 		rsp.Status.Code = RSP_ERROR
 		rsp.Status.Msg = USER_GET_GIFT_NO_LIMIT
