@@ -238,6 +238,7 @@ func (q *Question) GetUserShare(ctx context.Context, req *proto.GetUserShareRequ
 	}
 	// todo: rpc - get user info
 	userClient := userrpc.NewUserService(USER_SERVER_NAME, q.Client)
+	log.Printf("request info: [%v]", req)
 	userShare, err := userClient.GetShareInfo(ctx, &userrpc.GetShareInfoRequest{
 		AppId:         THIS_APPID,
 		UserId:        req.UserId,
