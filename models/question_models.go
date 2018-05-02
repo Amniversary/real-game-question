@@ -73,7 +73,8 @@ func UpdateUserGameInfo(user *UserGame) error {
 		"game_num":  user.GameNum,
 		"chance":    user.Chance,
 		"game_sign": user.GameSign,
-		"success": user.Success,
+		"success":   user.Success,
+		"goods":     user.Goods,
 	}).Error
 	if err != nil {
 		return err

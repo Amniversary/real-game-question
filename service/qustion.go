@@ -372,7 +372,7 @@ func (q *Question) GetGift(ctx context.Context, req *proto.GetGiftRequest, rsp *
 	}
 	user.Success -= 1
 	user.Goods += 1
-	if err := models.UpdateUserInfo(user); err != nil {
+	if err := models.UpdateUserGameInfo(user); err != nil {
 		return err
 	}
 
