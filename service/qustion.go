@@ -140,17 +140,17 @@ func (q *Question) Index(ctx context.Context, req *proto.IndexRequest, rsp *prot
 	times := models.GetChallengeTimes()
 	rsp.ChallengeTimes = times + ChallengeTimes
 	// get user info
-	//userClient := userrpc.NewUserService(USER_SERVER_NAME, q.Client)
-	//userInfo, err := userClient.GetUserList(ctx, &userrpc.GetUserListRequest{
-	//	AppId:      THIS_APPID,
-	//	UserIdList: []int64{req.UserId},
-	//})
-	//if err != nil || len(userInfo.UserList) == 0 {
-	//	log.Printf("[rpc] get user list err: [%v]", err)
-	//	rsp.Status.Code = RSP_ERROR
-	//	rsp.Status.Msg = GET_USER_INFO_MSG
-	//	return nil
-	//}
+	userClient := userrpc.NewUserService(USER_SERVER_NAME, q.Client)
+	userInfo, err := userClient.GetUserList(ctx, &userrpc.GetUserListRequest{
+		AppId:      THIS_APPID,
+		UserIdList: []int64{req.UserId},
+	})
+	if err != nil || len(userInfo.UserList) == 0 {
+		log.Printf("[rpc] get user list err: [%v]", err)
+		rsp.Status.Code = RSP_ERROR
+		rsp.Status.Msg = GET_USER_INFO_MSG
+		return nil
+	}
 	nowStart := now.BeginningOfDay().Unix()
 	// get user game info
 	user := &models.UserGame{UserId: req.UserId}
