@@ -88,14 +88,14 @@ func GetQuestionList() ([]*proto.QuestionList, error) {
 	for i := 1; i < 5; i++ {
 		var info []*proto.QuestionList
 		switch i {
-		case 1: limit = 10
+		case 1: limit = 15
 		case 2: limit = 10
-		case 3: limit = 10
-		case 4: limit = 10
+		case 3: limit = 8
+		case 4: limit = 7
 		}
 		err := db.Table("question").
 			Select("`num1`, `operator`, `num2`, `result`, `success`, `seconds`").
-			Where("`level` = ?", 4).
+			Where("`level` = ?", i).
 			Limit(limit).Order("rand()").Find(&info).Error
 		if err != nil {
 			return nil, err
