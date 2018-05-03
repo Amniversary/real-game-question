@@ -90,8 +90,8 @@ func GetQuestionList() ([]*proto.QuestionList, error) {
 		switch i {
 		case 1: limit = 11
 		case 2: limit = 11
-		case 3: limit = 11
-		case 4: limit = 7
+		case 3: limit = 10
+		case 4: limit = 8
 		}
 		err := db.Table("question").
 			Select("`num1`, `operator`, `num2`, `result`, `success`, `seconds`").
